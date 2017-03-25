@@ -42,6 +42,7 @@ int unitTest(string str, bool expected) {
 
 void basicTests() {
   int fail = 0;
+  // customize your own tests here
   fail += unitTest("abcdefg", true);
   fail += unitTest("abcaefg", false);
   fail += unitTest("234198098adfjlkajdslkfjlakdj", false);
@@ -56,6 +57,7 @@ void basicTests() {
   // method 1 cannot correctly deal with Chinese characters
   fail += unitTest("为什么中文字符不能通过呢，如果这个没有重复的话。", true);
   fail += unitTest("为什么中文字符不能通过呢", true);
+  //
   if (fail == 0) {
     printf("Test passed!\n");
   } else {
