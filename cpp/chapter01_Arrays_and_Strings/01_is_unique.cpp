@@ -6,14 +6,15 @@ using namespace std;
 // The 1st method
 // Assume we already know the alphabet of the string, say extended ASCII for example, so the size of alphabet is 256.
 // we could also take the alphabet size as an input argument R.
-bool isUnique1(string str, int R = 256) {
+bool isUnique1(string str) {
+  const int R = 256;
   if (str.length() > R) {
     return false;
   }
-  bool alphabet[R];
-  for (int i = 0; i < R; ++i) {
-    alphabet[i] = false;
-  }
+  bool alphabet[R] = {};
+//  for (int i = 0; i < R; ++i) {
+//    alphabet[i] = false;
+//  }
   for(char &s : str) {
     if (s >= R) {
       throw invalid_argument("character index in string exceeds the size of given alphabet !\n");
@@ -25,6 +26,14 @@ bool isUnique1(string str, int R = 256) {
   }
   return true;
 }
+
+
+// 2nd method
+// we could use a bit array instead of a bool array to save some space;
+
+// 3rd method
+// if the alphabet could be really huge, we could also use a hashtable instead of arrays;
+
 
 ////////////////////// Test ////////////////////////
 int unitTest(string str, bool expected) {
@@ -55,7 +64,7 @@ void basicTests() {
   // test non ex-ASCII
   fail += unitTest("中文字符是不是对的？", false);
   fail += unitTest("重复的中文字符中？", false);
-  // method 1 cannot correctly deal with Chinese characters
+  // cannot correctly deal with Chinese characters
   // NOTE: you can change the implementation char -> wchar_t and string -> wstring, however, things would be trick for many situations (e.g. cross-platform)
   fail += unitTest("为什么中文字符不能通过呢，如果这个没有重复的话。", true);
   fail += unitTest("为什么中文字符不能通过呢", true);
