@@ -51,10 +51,12 @@ void basicTests() {
   // test white space
   fail += unitTest("  ", false);
   fail += unitTest("ab cd ef ", false);
+
   // test non ex-ASCII
   fail += unitTest("中文字符是不是对的？", false);
   fail += unitTest("重复的中文字符中？", false);
   // method 1 cannot correctly deal with Chinese characters
+  // NOTE: you can change the implementation char -> wchar_t and string -> wstring, however, things would be trick for many situations (e.g. cross-platform)
   fail += unitTest("为什么中文字符不能通过呢，如果这个没有重复的话。", true);
   fail += unitTest("为什么中文字符不能通过呢", true);
   //
