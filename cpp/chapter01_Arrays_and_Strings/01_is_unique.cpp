@@ -1,3 +1,7 @@
+//
+// Created by Honghao Li on 3/26/17.
+//
+
 #include <iostream>
 
 using namespace std;
@@ -59,6 +63,9 @@ class Test {
     // test white space
     unitTest("  ", false);
     unitTest("ab cd ef ", false);
+    // test some special characters
+    unitTest("ab cd\tef", true);
+    unitTest("abcd\t\0\0\0ef", true);
 
     // test non ex-ASCII
     unitTest("中文字符是不是对的？", false);
