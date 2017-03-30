@@ -1,5 +1,5 @@
 //
-// Created by Honghao Li on 3/26/17.
+// Created by Honghao Li on 3/28/17.
 //
 
 #include <iostream>
@@ -81,6 +81,31 @@ bool isOneAway2(string s1, string s2) {
 }
 
 // 3rd method
+// the same with method 2,  same to answer in the book
+bool isOneAway3(string s1, string s2) {
+  string &s_short = s1.length() < s2.length() ? s1 : s2;
+  string &s_long = s1.length() >= s2.length() ? s1 : s2;
+  int d_length = s_long.length() - s_short.length();
+  if (d_length > 1)
+    return false;
+
+  int diff = 0;
+  int i_short = 0, i_long = 0;
+  while (i_short < s_short.length()) {
+    if (s_short[i_short] == s_long[i_long]) {
+      i_short++;
+      i_long++;
+      continue;
+    }
+    diff++;
+    if (diff > 1)
+      return false;
+    if (d_length == 0)
+      i_short++;
+    i_long++;
+  }
+  return true;
+}
 
 
 
@@ -94,6 +119,7 @@ class Test {
   Test(bool (*test_func)(string, string)) : func(test_func) {
     basicTests();
   }
+  Test() = default;
 
  private:
   int num_fail = 0;
@@ -147,6 +173,6 @@ class Test {
 
 ////////////////////// Main ////////////////////////
 int main() {
-  Test t = Test(isOneAway2);  // change the method you want to test here.
+  Test t = Test(isOneAway3);  // change the method you want to test here.
   return 0;
 }
