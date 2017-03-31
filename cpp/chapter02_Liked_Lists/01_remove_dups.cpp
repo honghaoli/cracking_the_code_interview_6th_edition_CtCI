@@ -15,37 +15,55 @@
 // Assume we only have upper and lower case letters a-z A-Z
 
 ////////////////////// Solution ////////////////////////
-LinkedList<int> removeDups(LinkedList<int> llist) {
+void removeDups(LinkedList<int> llist) {
   llist.removeDups();
-  return llist;
 }
 
 // The 1st method
 // use hash map to store all the items, maybe we can use another data structure rather than <key, value> pair.
-template <typename T>
-void LinkedList<T>::removeDups() {
-  using namespace std;
-  unordered_map<T, bool> map;
-  Node *n = head;
-  if (n == nullptr)
-    return;
-  map[n->item] = true;
-  while (n->next != nullptr) {
-    if (map.find(n->next->item) != map.end()) {
-      Node *tmp = n->next;
-      n->next = n->next->next;
-      delete tmp;
-      N--;
-    } else {
-      map[n->next->item] = true;
-      n = n->next;
-    }
-  }
-}
+//template <typename T>
+//void LinkedList<T>::removeDups() {
+//  using namespace std;
+//  unordered_map<T, bool> map;
+//  Node *n = head;
+//  if (n == nullptr)
+//    return;
+//  map[n->item] = true;
+//  while (n->next != nullptr) {
+//    if (map.find(n->next->item) != map.end()) {
+//      Node *tmp = n->next;
+//      n->next = n->next->next;
+//      delete tmp;
+//      N--;
+//    } else {
+//      map[n->next->item] = true;
+//      n = n->next;
+//    }
+//  }
+//}
 
 
 
 // 2nd method
+// without buffer, do it ~O(N^2)
+template <typename T>
+void LinkedList<T>::removeDups() {
+  Node *n = head;
+  while (n != nullptr) {
+    Node *m = n;
+    while (m->next != nullptr) {
+      if (m->next->item == n->item) {
+        Node *tmp = m->next;
+        m->next = m->next->next;
+        delete tmp;
+        N--;
+        continue;
+      }
+      m = m->next;
+    }
+    n = n->next;
+  }
+}
 
 // 3rd method
 
@@ -58,14 +76,14 @@ class Test {
 
  public:
 
-  Test(LinkedList<int> (*test_func)(LinkedList<int>)) {
+  Test(void (*test_func)(LinkedList<int>)) {
     func = test_func;
     basicTests();
   }
 
  private:
   int num_fail = 0;
-  LinkedList<int> (*func)(LinkedList<int>);
+  void (*func)(LinkedList<int>);
 
   void basicTests() {
     // customize your own tests here
@@ -82,17 +100,19 @@ class Test {
   }
 
   void unitTest(LinkedList<int> llist, LinkedList<int> expected) {
-    LinkedList<int> result = func(llist);
 
     using namespace std;
     ostringstream s;
     s << "\n========== test failed! ===========\n";
     s << "Linked list input: " << llist.toString() << endl;
     s << "expected answer: " << expected.toString() << endl;
-    s << "your answer: " << result.toString() << endl;
+//    func(llist);
+    llist.removeDups();
+    s << "your answer: " << llist.toString() << endl;
     s << "===================================\n";
+//    std::cerr << "llist size = " << llist.size() << std::endl;
 
-    if (!result.isEqual(expected) ) {
+    if (!llist.isEqual(expected) ) {
       cerr << s.str() << endl;
       num_fail++;
     }

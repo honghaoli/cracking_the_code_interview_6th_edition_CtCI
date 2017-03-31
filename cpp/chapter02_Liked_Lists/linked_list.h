@@ -10,9 +10,7 @@
 #include <vector>
 #include <algorithm>
 
-template <class T>
-
-class LinkedList {
+template <typename T> class LinkedList {
 
  public:
 
@@ -81,7 +79,7 @@ class LinkedList {
       s << n->item << " -> ";
       n = n->next;
     }
-    s << "nullptr";
+    s << "nullptr" << " (total: " << N << ")";
     return s.str();
   }
 
