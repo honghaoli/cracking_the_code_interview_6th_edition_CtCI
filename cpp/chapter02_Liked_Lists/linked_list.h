@@ -14,7 +14,14 @@ template <typename T> class LinkedList {
 
  public:
 
+  // problem 01
   void removeDups();
+  // problem 01
+//  Node* findKthToLast(int k);
+  std::string findKthToLastToString(int k);
+
+
+
 
   LinkedList() = default;
   LinkedList(std::vector<T> items) {
@@ -97,13 +104,15 @@ template <typename T> class LinkedList {
     return true;
   }
 
-
  private:
 
   struct Node {
+    Node() = default;
     Node(T item) : item(item) {}
+
     Node *next = nullptr;
     T item;
+
   };
 
   Node *head = nullptr;  // the first node
