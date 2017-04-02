@@ -92,6 +92,13 @@ Node* partition1(Node *head, int value) {
 }
 
 // 2nd method
+// The 1st method will mess up the original order.
+// What can we do if we want to keep the original order?
+// We can create two linked lists, one with smaller values, and the other with larger values. Then merge them afterwards.
+Node* partition2(Node *head, int value) {
+  //
+  return head;
+}
 
 // 3rd method
 
