@@ -23,6 +23,8 @@ std::string LinkedList<T>::findKthToLastToString(int k) {
   Node *n1 = head;
   Node *n2 = head;
   for (int i = 0; i < k; ++i) {
+    // if we do not know the size N, we could remove the first if (N<k) and add here:
+    // if (n2 == nullptr) return "nullptr";
     n2 = n2->next;
   }
   while (n2->next != nullptr) {
