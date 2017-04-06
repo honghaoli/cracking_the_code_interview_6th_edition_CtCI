@@ -200,7 +200,7 @@ class MyStackWithMin : MyStack<T> {
     return smin.peek();
   }
 
-  string toString() {
+  string toString() override {
     ostringstream s;
     s << MyStack<T>::toString();
     if (!smin.isEmpty())
