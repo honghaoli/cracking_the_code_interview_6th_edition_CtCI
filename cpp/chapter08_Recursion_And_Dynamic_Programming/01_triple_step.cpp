@@ -17,15 +17,20 @@ using namespace std;
 // 1st method
 // top-down dynamic programming
 long steps(int n, vector<long>& d) {
+  if (n < 0)
+    return 0;
+  else if (n == 0)
+    return 1L;
+  else if (n == 1)
+    return 1L;
+// From the text book, we only need to define n=0, and m=1 case.
+//  else if (n == 2)    // 1,1  2
+//    return 2L;
+//  else if (n == 3)    // 1,1,1  1,2   2,1   3
+//    return 4L;
+  //
   if (d[n] > 0L)
     return d[n];
-  //
-  if (n == 1)
-    return 1L;
-  else if (n == 2)    // 1,1  2
-    return 2L;
-  else if (n == 3)    // 1,1,1  1,2   2,1   3
-    return 4L;
   //
   long s = steps(n-1, d) + steps(n-2, d) + steps(n-3, d);
   d[n] = s;
@@ -34,7 +39,7 @@ long steps(int n, vector<long>& d) {
 
 long solve(int n) {
   vector<long> d;
-  for (int i = 0; i < n; ++i) {
+  for (int i = 0; i <= n; ++i) {
     d.push_back(-1L);
   }
   return steps(n, d);
@@ -86,8 +91,9 @@ class Test {
   void basicTests() {
     printf("C++ version: %ld\n", __cplusplus);
     // customize your own tests here
-    printf("%d, %ld\n", 20, solve(20));
-    printf("%d, %ld\n", 20, solve2(20));
+    int n = 100;
+    printf("%d, %ld\n", n, solve(n));
+    printf("%d, %ld\n", n, solve2(n));
   }
 
 };
