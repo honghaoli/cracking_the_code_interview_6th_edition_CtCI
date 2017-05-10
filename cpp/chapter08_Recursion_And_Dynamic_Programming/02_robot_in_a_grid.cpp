@@ -17,7 +17,7 @@
 #include <tuple>
 #include <map>
 
-#include "graph.h"
+#include "../lib/graph.h"
 
 using namespace std;
 
