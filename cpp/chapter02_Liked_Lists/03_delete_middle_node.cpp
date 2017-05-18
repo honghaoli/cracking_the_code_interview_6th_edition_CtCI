@@ -19,7 +19,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
-#include "linked_list2.h"
+#include "../lib/linked_list2.h"
 
 using namespace std;
 

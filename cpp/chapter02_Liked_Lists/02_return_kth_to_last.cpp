@@ -8,7 +8,7 @@
 
 #include <cstdio>
 #include <unordered_map>
-#include "linked_list.h"
+#include "../lib/linked_list.h"
 
 
 

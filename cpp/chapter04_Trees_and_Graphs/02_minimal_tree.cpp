@@ -70,6 +70,7 @@ Node<int> minimal_tree(vector<int> &v) {
 }
 
 // 2nd method
+// text book gives the same method as I did above.
 
 
 
