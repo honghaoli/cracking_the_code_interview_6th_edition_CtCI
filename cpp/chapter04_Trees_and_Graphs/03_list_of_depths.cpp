@@ -104,10 +104,10 @@ vector<LinkedList<Node<int> *>> create_lists_bfs(Node<int> *root) {
   // add the root
   if (root != nullptr) {
     current_list.appendToHead(root);
-    lists.push_back(current_list);
   }
   // add children level by level
   while (!current_list.isEmpty()) {   // if current level has nodes, find all the children
+    lists.push_back(current_list);
     LinkedList<Node<int> *> parent_list = current_list;
     current_list = LinkedList<Node<int> *>();   // create new empty linked list
     //linked list should have iterator implementation
@@ -117,7 +117,6 @@ vector<LinkedList<Node<int> *>> create_lists_bfs(Node<int> *root) {
       if (l->right != nullptr)
         current_list.appendToHead(l->right);
     }
-    lists.push_back(current_list);
   }
 
   return lists;
@@ -145,6 +144,7 @@ class Test {
     auto res = minimal_tree(v);
     print_tree(&res);
 
+    // test 1st method
     auto lists = create_lists(&res);
     cout << endl;
     for (auto &l : lists) {

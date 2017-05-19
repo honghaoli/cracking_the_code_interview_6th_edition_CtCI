@@ -114,6 +114,7 @@ template <typename T> class LinkedList {
   };
 
   // Iterator implementation makes life easier " for (auto &l : linked_list) "
+  // there are many reference, one could be: http://stackoverflow.com/a/28926968/4140007
   class Iterator {
    public:
     Iterator() = default;
