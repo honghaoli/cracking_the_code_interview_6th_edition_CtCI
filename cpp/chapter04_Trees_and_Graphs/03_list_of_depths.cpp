@@ -51,7 +51,7 @@ void print_tree(Node<int> *p, int indent = 0)
   }
 }
 
-////////// keep this method to create a tree /////////////////////
+////////// use previous method (problem 04-02) to create a tree /////////////////////
 void add_to_node(Node<int> *n, vector<int> &v, int lo, int hi) {
   int mid = (hi - lo) / 2 + lo;
   n->item = v[mid];
@@ -96,8 +96,32 @@ vector<LinkedList<int>> create_lists(Node<int> *root) {
 }
 
 // 2nd method
-// text book gives the same method as I did above.
+// As the text book claimed, the 1st method is DFS, the 2nd method can be BFS.
+// notice this method create different order in the linked lists.
+vector<LinkedList<Node<int> *>> create_lists_bfs(Node<int> *root) {
+  vector<LinkedList<Node<int> *>> lists;
+  LinkedList<Node<int> *> current_list;
+  // add the root
+  if (root != nullptr) {
+    current_list.appendToHead(root);
+    lists.push_back(current_list);
+  }
+  // add children level by level
+  while (!current_list.isEmpty()) {   // if current level has nodes, find all the children
+    LinkedList<Node<int> *> parent_list = current_list;
+    current_list = LinkedList<Node<int> *>();   // create new empty linked list
+    //linked list should have iterator implementation
+    for (auto &l: parent_list) {
+      if (l->left != nullptr)
+        current_list.appendToHead(l->left);
+      if (l->right != nullptr)
+        current_list.appendToHead(l->right);
+    }
+    lists.push_back(current_list);
+  }
 
+  return lists;
+}
 
 
 ////////////////////
@@ -125,6 +149,16 @@ class Test {
     cout << endl;
     for (auto &l : lists) {
       l.print();
+    }
+
+    // test 2nd method
+    auto lists2 = create_lists_bfs(&res);
+    printf("\nMethod 2\n");
+    for (auto &l : lists2) {
+      for (auto &elem : l) {
+        cout << elem->item << " -> ";
+      }
+      cout << "nullptr " << endl;
     }
 
   }

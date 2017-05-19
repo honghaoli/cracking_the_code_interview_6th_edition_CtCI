@@ -104,16 +104,57 @@ template <typename T> class LinkedList {
     return true;
   }
 
- private:
-
+  // forward declaration for use in Iterator.
   struct Node {
     Node() = default;
     Node(T item) : item(item) {}
 
     Node *next = nullptr;
     T item;
-
   };
+
+  // Iterator implementation makes life easier " for (auto &l : linked_list) "
+  class Iterator {
+   public:
+    Iterator() = default;
+    Iterator(const Node *pNode) noexcept : current_node(pNode) {}
+
+    Iterator& operator=(Node *pNode) {
+      this->current_node = pNode;
+      return *this;
+    }
+
+    // prefix ++ overload
+    Iterator& operator++() {
+      if (current_node)
+        current_node = current_node->next;
+      return *this;
+    }
+
+    // postfix ++ overload ignored here
+
+    bool operator!=(const Iterator& iterator) {
+      return current_node != iterator.current_node;
+    }
+
+    // dereference operator
+    const T& operator*() const {
+      return current_node->item;
+    }
+
+   private:
+    const Node * current_node;
+  };
+
+  // now implement begin and end
+  Iterator begin() const {
+    return Iterator(head);
+  }
+  Iterator end() const {
+    return Iterator(nullptr);
+  }
+
+ private:
 
   Node *head = nullptr;  // the first node
   int N = 0;  // number of items
