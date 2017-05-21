@@ -42,8 +42,7 @@ void in_order_traversal(Node<T> *node) {
 }
 
 // print the tree from top to bottom, in command line, it shows from left to right.
-void print_tree(Node<int> *p, int indent = 0)
-{
+void print_tree(Node<int> *p, int indent = 0) {
   if(p != nullptr) {
     if(p->left) print_tree(p->left, indent + 4);
     if (indent) {
@@ -113,6 +112,7 @@ bool is_bst(Node<int> *root) {
 
 
 // 2nd method
+// text book use another method similar to above, just passing from top to bottom, inverse of method above.
 
 
 ////////////////////
