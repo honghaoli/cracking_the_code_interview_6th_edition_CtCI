@@ -100,6 +100,7 @@ Node<int> *next(Node<int> *node) {
     }
     nex = search;
   }
+  else      // my original solution does not have this "else", from the textbook, it's easy to realize the node in subtree would <= than the potential correct node in parent nodes.
   // upstream search parents
   if (node->parent != nullptr) {
     search = node;
