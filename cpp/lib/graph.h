@@ -8,7 +8,8 @@
 #include <vector>
 #include <algorithm>
 #include <queue>
-
+#include <iostream>
+#include <stack>
 
 /// Undirected Graph
 class Graph {
@@ -172,11 +173,103 @@ class BreadthFirstPaths {
 };
 
 
-// symbol graph
-class SymbolGraph {
+// Algorithm 4th, page 577,
+// Finding a directed cycle
+class DirectedCycle {
  public:
+  DirectedCycle() = default;
+  DirectedCycle(DiGraph G) {
+    marked.resize(G.V(), false);
+    onStack.resize(G.V(), false);
+    edgeTo.resize(G.V(), -1);   // -1 means no vertex connects to current vertex
+    for (int v = 0; v < G.V(); ++v) {
+      if (!marked[v])
+        dfs(G, v);
+    }
+  }
+
+  bool hasCycle() {
+    return cycle.size() > 0;
+  }
+
+  void printCycle() {
+    for (auto &v : cycle)
+      std::cout << v << " -> ";
+    std::cout << std::endl;
+  }
+
  private:
+  std::vector<bool> marked;
+  std::vector<int> edgeTo;   // last vertex on known path to this vertex
+  std::vector<bool> onStack;
+  std::vector<int> cycle;   // last vertex on known path to this vertex
+
+  void dfs(Graph& G, int v) {
+    onStack[v] = true;
+    marked[v] = true;
+    for (auto &w : G.adj(v)) {
+      if (hasCycle()) return;
+      else if (!marked[w]) {
+        edgeTo[w] = v;
+        dfs(G, w);
+      }
+      else if (onStack[w]) {
+        cycle = std::vector<int>();
+        for (int x = v; x != w; x = edgeTo[x]) {
+          cycle.push_back(x);
+        }
+        cycle.push_back(w);
+        cycle.push_back(v);
+      }
+    }
+    onStack[v] = false;
+  }
+
 };
+
+
+
+// Algorithm 4th, page 580
+// Depth-first search vertex ordering in a digraph
+class DepthFirstOrder {
+ public:
+  DepthFirstOrder() = default;
+  DepthFirstOrder(Graph G) {
+    marked.resize(G.V(), false);
+    for (int v = 0; v < G.V(); ++v) {
+      if (!marked[v])
+        dfs(G, v);
+    }
+  }
+
+  void printReversePost() {
+    printf("total %lu nodes.\n", reversePost.size());
+    for (int i = reversePost.size()-1; i >= 0; i--)
+      std::cout << " -> " << reversePost[i];
+    std::cout << std::endl;
+  }
+
+ private:
+  std::vector<bool> marked;  // Has dfs() been called for this vertex?
+  std::queue<int> pre;
+  std::queue<int> post;
+  std::vector<int> reversePost;
+
+  void dfs(Graph& G, int v) {
+    pre.push(v);
+
+    marked[v] = true;
+    for (auto &w : G.adj(v)) {
+      if (!marked[w]) {
+        dfs(G, w);
+      }
+    }
+
+    post.push(v);
+    reversePost.push_back(v);
+  }
+};
+
 
 
 #endif //CTCI_6TH_GRAPH_H
