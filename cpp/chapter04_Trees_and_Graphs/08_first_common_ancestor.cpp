@@ -115,11 +115,60 @@ Node<int>* find_ancestor(Node<int> *n1, Node<int> *n2) {
 }
 
 
+
+
+// 2nd method
+// We don't need to store the parents list, as shown in the book
+Node<int>* find_ancestor2(Node<int> *n1, Node<int> *n2) {
+  // calculate parent list length
+  int length1 = 0, length2 = 0;
+  Node<int> *tmp1 = n1, *tmp2 = n2;
+  while (tmp1 != nullptr) {
+    length1++;
+    tmp1 = tmp1->parent;
+  }
+  while (tmp2 != nullptr) {
+    length2++;
+    tmp2 = tmp2->parent;
+  }
+
+  // chop the longer one
+  int shorter = min(length1, length2);
+  int s1 = length1 - shorter;
+  int s2 = length2 - shorter;
+  while (s1-- > 0) {
+    n1 = n1->parent;
+  }
+  while (s2-- > 0) {
+    n2 = n2->parent;
+  }
+
+  // move forward together to find the first common ancester
+  Node<int> *ancestor = nullptr;
+  while (n1 != nullptr) {
+    if (n1->item == n2->item) {
+      ancestor = n1;
+      break;
+    }
+    n1 = n1->parent;
+    n2 = n2->parent;
+  }
+
+  return ancestor;
+}
+
+
+// 3nd method
+// TODO: We also need to consider the case when nodes have no link to parents.
+
+
+/////////////////////////////////////
 // test
 void test(Node<int> *n1, Node<int> *n2) {
   if (n1 == nullptr || n2 == nullptr) return;
   printf("Node (%d) and Node (%d) 's common ancestor is ", n1->item, n2->item);
-  auto anc = find_ancestor(n1, n2);
+//  auto anc = find_ancestor(n1, n2);
+  auto anc = find_ancestor2(n1, n2);
   if (anc != nullptr)
     printf("Node (%d).\n", anc->item);
   else
@@ -142,10 +191,6 @@ void unit_test(Node<int> *n, Node<int> *root) {
   if (n->right != nullptr)
     unit_test(n->right, root);
 }
-
-
-
-// 2nd method
 
 
 ////////////////////
