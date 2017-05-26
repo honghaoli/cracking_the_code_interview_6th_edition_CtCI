@@ -163,7 +163,7 @@ Node<int>* find_ancestor2(Node<int> *n1, Node<int> *n2) {
 
 
 /////////////////////////////////////
-// test
+// test two given nodes.
 void test(Node<int> *n1, Node<int> *n2) {
   if (n1 == nullptr || n2 == nullptr) return;
   printf("Node (%d) and Node (%d) 's common ancestor is ", n1->item, n2->item);
@@ -175,6 +175,7 @@ void test(Node<int> *n1, Node<int> *n2) {
     printf("nullptr.\n");
 }
 
+// test all possible nodes in the tree with a given node
 void test_all(Node<int> *n, Node<int> *root) {
   if (root->left != nullptr)
     test_all(n, root->left);
@@ -184,6 +185,7 @@ void test_all(Node<int> *n, Node<int> *root) {
     test_all(n, root->right);
 }
 
+// test all possible combination of two nodes in the tree
 void unit_test(Node<int> *n, Node<int> *root) {
   if (n->left != nullptr)
     unit_test(n->left, root);
