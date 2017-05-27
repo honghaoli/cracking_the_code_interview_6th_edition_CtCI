@@ -163,6 +163,7 @@ class Test {
     }
 
     printf("\n============== Random Test Tree 2 ==============\n");
+//    srand (time(NULL));
     for (int i = 0; i < 20; ++i) {
       auto node = get_ranndom(&tree2, calculate_tree_size(&tree2));
       printf("The %d-th random Node is (%d).\n", i, node->item);
