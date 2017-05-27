@@ -182,6 +182,42 @@ class Test {
       printf("Tree has %d path(s) of value %d.\n", count_sums(&tree2, i), i);
     }
 
+    printf("\n============== Test tree 3 ==============\n");
+    vector<int> v3 {-3,-2,-1,0,1,2,3};
+    auto tree3 = minimal_tree(v3);
+    print_tree(&tree3);
+    printf("tree size %d.\n", calculate_tree_size(&tree3));
+    find_sums(&tree3);
+    for (int i = -6; i <= 6; ++i) {
+      printf("Tree has %d path(s) of value %d.\n", count_sums(&tree3, i), i);
+    }
+
+    printf("\n============== Test tree 4 ==============\n");
+    Node<int> tree4 = Node<int>();
+    Node<int> n1 = Node<int>();
+    Node<int> n2 = Node<int>();
+    Node<int> n3 = Node<int>();
+    Node<int> n4 = Node<int>();
+    Node<int> n5 = Node<int>();
+    tree4.item = 0;
+    n1.item = 1;
+    n2.item = -1;
+    n3.item = 1;
+    n4.item = -1;
+    n5.item = 1;
+    tree4.left = &n1;
+    n1.left = &n2;
+    n2.left = &n3;
+    n3.left = &n4;
+    n4.left = &n5;
+
+    print_tree(&tree4);
+    printf("tree size %d.\n", calculate_tree_size(&tree4));
+    find_sums(&tree4);
+    for (int i = -3; i <= 3; ++i) {
+      printf("Tree has %d path(s) of value %d.\n", count_sums(&tree4, i), i);
+    }
+
   }
 
 };
