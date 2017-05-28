@@ -23,6 +23,7 @@ struct Node {
   T item;
   Node *left = nullptr;
   Node *right = nullptr;
+  int size = -1;
 };
 
 template <typename T>
@@ -74,24 +75,33 @@ Node<int> minimal_tree(vector<int> &v) {
 
 
 
+// Since we are asked to write the tree from scratch, we can implement size in the data structure.
 int calculate_tree_size(Node<int> *n) {
   if (n == nullptr)
     return 0;
   int size = 1;   // current node counts 1
-  if (n->left != nullptr)
-    size += calculate_tree_size(n->left);
-  if (n->right != nullptr)
-    size += calculate_tree_size(n->right);
+  if (n->left != nullptr) {
+    if (n->left->size < 0)  // not calcualted
+      size += calculate_tree_size(n->left);
+    else
+      size += n->left->size;
+  }
+  if (n->right != nullptr) {
+    if (n->right->size < 0)  // not calcualted
+      size += calculate_tree_size(n->right);
+    else
+      size += n->right->size;
+  }
+  n->size = size;
   return size;
 }
 
 
-
-
 // 1st method
 // since DFS has a specific order, so every time generate a number in [0, tree.size), the use DFS find the i-th node.
+// this solution is not the best, the similar but optimal version is the option #7 in the book.
 Node<int> * get_node(int &id, Node<int> *node) {
-  if (id < 0)
+  if (id < 0)     // the random id starts from 0.
     return node;
   else
     return nullptr;
@@ -113,14 +123,29 @@ Node<int> * move_node(int &id, Node<int> *tree) {
   return nullptr;
 }
 
+int random_id(int size) {
+  return rand() % size;
+}
+
 Node<int> * get_ranndom(Node<int> *tree, int size) {
   // change this part for a better random sample
-  int id = rand() % size;
+  int id = random_id(size);
   return move_node(id, tree);
 }
 
-
 // 2nd method
+// option #7 in the book
+// skips all unnecessary traversal
+Node<int> * get_ith_node(int id, Node<int> *node) {   // here id also starts from 0.
+  int leftsize = (node->left == nullptr) ? 0 : node->left->size;
+  if (id < leftsize) {
+    return get_ith_node(id, node->left);
+  } else if ( id == leftsize) {
+    return node;
+  } else {
+    return get_ith_node(id - leftsize - 1, node->right);
+  }
+}
 
 
 ////////////////////
@@ -159,7 +184,12 @@ class Test {
     for (int i = 0; i < 7; ++i) {
       int idcopy = i;
       auto node = move_node(idcopy, &tree2);
-      printf("The %d-th Node is (%d).\n", i, node->item);
+      printf("The %d-th Node is (%d), with size %d.\n", i, node->item, node->size);
+    }
+    // test solution 2
+    for (int i = 0; i < 7; ++i) {
+      node = get_ith_node(i, &tree2);
+      printf("#2 The %d-th Node is (%d).\n", i, node->item);
     }
 
     printf("\n============== Random Test Tree 2 ==============\n");
@@ -167,6 +197,12 @@ class Test {
     for (int i = 0; i < 20; ++i) {
       auto node = get_ranndom(&tree2, calculate_tree_size(&tree2));
       printf("The %d-th random Node is (%d).\n", i, node->item);
+    }
+    printf("\n============== Test Tree 2 for solution 2 ==============\n");
+    for (int i = 0; i < 20; ++i) {
+      auto id = random_id(tree2.size);
+      auto node = get_ith_node(id, &tree2);
+      printf("#2 The %d-th Node is (%d).\n", id, node->item);
     }
 
   }

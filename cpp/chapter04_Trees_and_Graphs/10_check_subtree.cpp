@@ -9,6 +9,7 @@
 // clarification:
 // when we say identical nodes, are they identical objects (address) or identical data ?
 // we assume it's the first case, they are identical by object (address).
+// BUT according to the book, identical is defined by data (item value).
 
 
 
@@ -79,8 +80,12 @@ Node<int> minimal_tree(vector<int> &v) {
 
 // 1st method
 // recursively compare two nodes and all children, return false once there is difference.
+// this solution is similar to Solution 2 in the book
+// this method takes O(log(n) + log(m)) space.
+// time complexity is complex, ~ O(n + km), please refer to the book
 bool two_node_identical(Node<int> *n1, Node<int> *n2) {
-  return n1 == n2;
+  return n1 == n2;    // identical by object
+//  return n1->item == n2->item;    // identical by data
 }
 
 bool two_trees_identical(Node<int> *n1, Node<int> *n2) {
@@ -115,6 +120,11 @@ bool is_subtree(Node<int> *smaller, Node<int> *larger) {
 
 
 // 2nd method
+// TODO: here we include the Solution 1 in the book
+// Create a pre-order traversal as a string, replace null end as special character.
+// Then check if T2 string is a substring in T1
+// this method takes O(n + m) time and O(n + m) space.
+
 
 
 ////////////////////
