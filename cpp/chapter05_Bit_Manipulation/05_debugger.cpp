@@ -9,5 +9,5 @@
 
 
 // Answer
-// check if the number is 2^i
+// check if the number is 2^i or 0
 // like      00100000

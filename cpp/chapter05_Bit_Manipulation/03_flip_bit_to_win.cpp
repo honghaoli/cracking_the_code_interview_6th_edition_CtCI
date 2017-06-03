@@ -6,6 +6,8 @@
 // You have an integer and you can flip exactly one bit from a 0 to a 1. Write code to find the length of the longest sequence of 1s you could create.
 
 
+//////// IMPORTANT!!! ///////////
+// C++ takes << >> as arithmetic shifts for signed integers and logical shifts for unsigned integers!!!  https://en.wikipedia.org/wiki/Logical_shift
 
 
 
@@ -61,6 +63,36 @@ int longest_1s(int num) {
 
 
 // 2nd method
+// Everytime it shifts one bit to check 1 or 0, and use (num & 0b10) to see if two 1s sequences are connected by one 0.
+// last length =  (num & 2) ? 0 : current length
+// maxlength = max(last + current + 1, maxlength)
+////////////////////////////////////////////////////////
+// Important to convert the input number to unsigned to make sure it's logical shift!!!
+////////////////////////////////////////////////////////
+int longest_1s_2(unsigned int num) {
+  const int size = 32;  // 32 bit for integer
+  int last = 0, current = 0;  // 1s sequences
+  int length = 0;
+
+  for (int i = 0; i <= size; ++i) { // loop size+1 times, make sure the last (or extra) bit is always zero, to execute the 2nd part code.
+//    cout << num << " = " << bitset<32>(num) << endl << flush;
+    if (num & 1 == 1) {
+      current++;
+    } else {
+//      printf("current = %d, last = %d, length = %d, \n", current, last, length);
+      length = max(last + current + 1, length);
+      last = (num & 2) ? current : 0;
+      current = 0;
+    }
+    num >>= 1;
+  }
+
+//  // all 1 bits, at most 32 bits
+  if (length > size)
+    return size;
+
+  return length;
+}
 
 
 ////////////////////
@@ -77,7 +109,8 @@ class Test {
   int num_fail = 0;
 
   void test(int n) {
-    cout << n << " = " << bitset<32>(n) << ", has longest " << longest_1s(n) << endl;
+//    cout << n << " = " << bitset<32>(n) << ", has longest " << longest_1s(n) << endl;
+    cout << n << " = " << bitset<32>(n) << ", has longest " << longest_1s_2(n) << endl;
   }
 
   void basicTests() {

@@ -34,6 +34,7 @@ int swap(int n) {
 
 
 // 2nd method
+// the book solution uses 0xaaaaaaaa and 0x55555555
 
 
 ////////////////////

@@ -45,7 +45,7 @@ void draw_line(vector<byte> &screen, int width, int x1, int x2, int y) {
   screen[char_end] |= mask_end;   // OR allows previous content not erased
   // middle bytes
   for (int i = char_start + 1; i < char_end; ++i) {
-    screen[i] = 0b11111111;   // fill full
+    screen[i] = 0b11111111;   // fill full    // or use 0xFF as in the book
   }
 }
 

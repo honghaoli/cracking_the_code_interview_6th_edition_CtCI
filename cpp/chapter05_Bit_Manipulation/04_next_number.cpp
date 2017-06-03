@@ -69,6 +69,7 @@ tuple<int, int> small_large(int number) {
 
 
 // 2nd method
+// the book solution use only basic bit manipulations, so no bitset.set() function calls like here.
 
 
 ////////////////////
