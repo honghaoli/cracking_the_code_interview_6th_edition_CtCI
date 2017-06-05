@@ -15,6 +15,7 @@
 #include <cstdio>
 #include <iostream>
 #include <vector>
+#include "../lib/helper.h"
 
 
 using namespace std;
@@ -22,7 +23,34 @@ using namespace std;
 
 
 // 1st method
-
+// If we want to move disk 1...N from stack A to stack C, we first move disks 1...N-1 from A to B, and move disk N from A to C, then move disks 1...N-1 from B to C.
+// and the 2nd step is a recursive function.
+// for simplicity, we usw vector as stack.
+// the function returns total steps needed
+int move_k_disks(int k, vector<int> &from, vector<int> &to, vector<int> &temp, bool show_step = false) {
+  if (from.size() < k)
+    throw "ERROR! not enough disks to move from\n.";
+  if (k == 1) {     // only one disk, move directly
+    int elem = from.back();
+    from.pop_back();
+    to.push_back(elem);
+    // for debug the steps
+    if (show_step) {
+      cout << "\nStep\n";
+      cout << "from: ";
+      print_vector(from);
+      cout << "to: ";
+      print_vector(to);
+      cout << "temp: ";
+      print_vector(temp);
+    }
+    return 1;
+  } else {          // more than one disks, move k-1 disks to temp, and last one to to, then move k-1 from temp to to.
+    return move_k_disks(k - 1, from, temp, to, show_step)
+        + move_k_disks(1, from, to, temp, show_step)
+        + move_k_disks(k - 1, temp, to, from, show_step);
+  }
+}
 
 
 // 2nd method
@@ -42,9 +70,39 @@ class Test {
  private:
   int num_fail = 0;
 
+  // move n disks from A to C, with temp B.
+  void test(int n) {
+    vector<int> A, B, C;
+    // initial disks in A.
+    for (int i = n; i > 0; --i) {
+      A.push_back(i);
+    }
+    cout << "\nInitial\n";
+    cout << "A: ";
+    print_vector(A);
+    cout << "B: ";
+    print_vector(B);
+    cout << "C: ";
+    print_vector(C);
+    //
+    int steps = move_k_disks(n, A, C, B, true);
+    //
+    cout << "\nAfter\n";
+    cout << "A: ";
+    print_vector(A);
+    cout << "B: ";
+    print_vector(B);
+    cout << "C: ";
+    print_vector(C);
+
+    printf("\nTotal steps %d\n", steps);
+  }
+
   void basicTests() {
     printf("C++ version: %ld\n", __cplusplus);
     // customize your own tests here
+
+    test(3);
 
   }
 
