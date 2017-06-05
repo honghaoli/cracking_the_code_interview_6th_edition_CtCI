@@ -15,6 +15,14 @@ void print_vector(std::vector<int> &vec) {
   std::cout << std::endl;
 }
 
+template <typename T>
+void print_vector(std::vector<T> &vec) {
+  for (auto &v : vec) {
+    std::cout << v << ", ";
+  }
+  std::cout << std::endl;
+}
+
 void print_vector2d(std::vector<std::vector<int>> &vec) {
   std::cout << std::endl;
   for (auto &v : vec) {
