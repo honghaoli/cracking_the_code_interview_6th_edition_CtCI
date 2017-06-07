@@ -24,29 +24,30 @@ using namespace std;
 
 
 // 1st method
+// recursively add ( or ) for each position, count num of left - num of right = net, net must >= 0.
+// so if net == 0, must add left ( ;
+// if left == 0, can only add right ) ;
+// otherwise, we can choose both left ( and right ) .
 vector<string> find_next(int net, int left, int right) {
-  // back to equal
-  if (net == 0) {
-    if (left == 0) {
-      return vector<string> {};
-    }
-    else {
-      vector<string> ss;
-      for (auto &s : find_next(1, left - 1, right)) {
-        ss.push_back("(" + s);
-      }
-      return ss;
-    }
-  }
-
   // only right left
-  if (net == right) {
+//  if (net == right) {   // also could be when (left == 0) as below.
+  if (left == 0) {
     string s = "";
     for (int i = 0; i < net; ++i) {
       s += ")";
     }
     return vector<string> {s};
   }
+
+  // equal number of ( and )
+  if (net == 0) {
+    vector<string> ss;
+    for (auto &s : find_next(1, left - 1, right)) {
+      ss.push_back("(" + s);
+    }
+    return ss;
+  }
+
 
   // in the middle
   vector<string> ss;
@@ -95,7 +96,7 @@ class Test {
     test(1);
     test(2);
     test(3);
-    test(4);
+    test(4);  // should have 14 results.
 
   }
 
