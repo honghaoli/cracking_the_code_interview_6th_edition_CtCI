@@ -17,6 +17,29 @@ using namespace std;
 
 
 // 1st method
+// consider from big to small
+int num(int cents, int money) {
+  return cents / money;
+}
+
+int total(int n) {
+  if (n <= 0)   // boundary cases
+    return 0;
+  int m = 0;
+  int n25 = num(n, 25);
+  for (int i = 0; i <= n25; ++i) {
+    int n10 = num(n - 25 * i, 10);
+    for (int j = 0; j <= n10; ++j) {
+      int n5 = num(n - 25 * i - 10 * j, 5);
+      for (int k = 0; k <= n5; ++k) {
+        m++;
+        // for visual debug.
+        printf("%d = %d x 25 + %d x 10 + %d x 5 + %d x 1\n", n, i, j, k, n - 25*i - 10*j - 5*k);
+      }
+    }
+  }
+  return m;
+}
 
 
 
@@ -37,9 +60,29 @@ class Test {
  private:
   int num_fail = 0;
 
+  void test(int n) {
+    int num = total(n);
+    printf("%d has %d ways to represent.\n\n", n, num);
+  }
+
   void basicTests() {
     printf("C++ version: %ld\n", __cplusplus);
     // customize your own tests here
+
+    test(0);
+    test(1);
+    test(2);
+    test(5);
+    test(6);
+    test(10);
+    test(11);
+    test(24);
+    test(25);
+    test(26);
+    test(30);
+    test(35);
+    test(40);
+    test(41);
 
   }
 
