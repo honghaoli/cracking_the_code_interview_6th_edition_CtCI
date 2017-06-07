@@ -33,7 +33,7 @@ vector<string> perms(string str) {
     return vector<string> {str};
   vector<string> ss;
   for (int i = 0; i < str.size(); ++i) {
-    for (string &s : perms(str.substr(0, i) + str.substr(i + 1, str.size() - i - 1))) {
+    for (string &s : perms(str.substr(0, i) + str.substr(i + 1))) {
       ss.push_back(str[i] + s);
     }
   }

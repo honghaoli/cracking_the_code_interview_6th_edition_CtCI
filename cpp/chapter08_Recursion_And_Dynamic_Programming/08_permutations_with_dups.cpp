@@ -33,7 +33,7 @@ vector<string> perms(string str) {
   for (int i = 0; i < str.size(); ++i) {
     if (hash[str[i]] > 0)
       continue;
-    for (string &s : perms(str.substr(0, i) + str.substr(i + 1, str.size() - i - 1))) {
+    for (string &s : perms(str.substr(0, i) + str.substr(i + 1))) {
       ss.push_back(str[i] + s);
     }
     hash[str[i]] = 1;
