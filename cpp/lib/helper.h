@@ -8,9 +8,9 @@
 #include <vector>
 #include <iostream>
 
-void print_vector(std::vector<int> &vec) {
-  for (auto &v : vec) {
-    std::cout << v << ", ";
+void print_vector(std::vector<bool> &vec) {
+  for (auto v : vec) {
+    std::cout << (v? "true" : "false") << ", ";
   }
   std::cout << std::endl;
 }
