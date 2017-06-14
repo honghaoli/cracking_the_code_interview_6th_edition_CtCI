@@ -146,6 +146,23 @@ int num_paren(string &expr, bool result) {
 
 
 // 2nd method
+/*
+ * TODO: The book solution is very interesting, I should do it again next time.
+ * 1. we don't need to store all the results into vector, we just store the number of true and false.
+ *      count(left & right, true) = count(left, true) * count(right, true);
+ *      count(left & right, false) = count(left, true) * count(right, false)
+ *                                 + count(left, false) * count(right, true)
+ *                                 + count(left, false) * count(right, false)
+ *      and we can write similar recursive equations for other two operators ^ and |
+ *      count(left ^ right, true/false) = ...
+ *      count(left | right, true/false) = ...
+ * 2. A better hash map would use hashmap<string expression, int> than my above method.
+ *      a) it's smaller;
+ *      b) if there are multiple duplicated expression we only need to calculate once, for example   1&0^1&0, the two 1&0 only need one calculation.
+ * 3. There is a mathematical formular to calculate the number of ways of parenthesizing an expression:
+ *      The Catalan numbers:   C_n = (2n)! / (n+1)! / n!,   where n is the number of operators.
+ *      Think about how to use this information.
+ */
 
 
 

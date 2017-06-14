@@ -74,6 +74,19 @@ vector<vector<int>> cols(int n) {
 
 
 // 2nd method
+// TODO: the book solution only gets the total number recursively
+/*
+ * ways to arrange queens on 8*8 =
+ *        ways to arrange the last queen at (7,0) +
+ *        ways to arrange the last queen at (7,1) +
+ *        ways to arrange the last queen at ...
+ *
+ *        where:
+ *          ways to arrange the last queen at (7,0) =
+ *                  ways to arrange the 2nd-last queens at (6,2) +
+ *                  ways to arrange the 2nd-last queens at (6,3) +
+ *                  ways to arrange the 2nd-last queens at ...
+ */
 
 
 

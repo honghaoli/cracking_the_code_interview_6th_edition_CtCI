@@ -70,6 +70,8 @@ int max_height(vector<Box> &boxes) {
 
 
 // 2nd method
+// TODO: the book solution is identical with above method, only with one optimization
+// sort all the box first (with respect to any parameter), then we don't need to search from the start.
 
 
 
