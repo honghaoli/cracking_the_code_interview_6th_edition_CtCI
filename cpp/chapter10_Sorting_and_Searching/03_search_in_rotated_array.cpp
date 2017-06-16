@@ -38,6 +38,10 @@ using namespace std;
 // Note the rotation will not change the relative order in the array. There are two separate pieces, first > second. So the only difference is the start point or the smallest item.
 // still use binary search, only consider the separate point.
 
+/*
+ * The 1st method does not work for array with duplicates,
+ * Until change the > and < into >= and <=, see below
+ */
 int find_idx(vector<int> &vec, int lo, int hi, int target) {
   if (hi < lo)
     return -1;
@@ -46,10 +50,12 @@ int find_idx(vector<int> &vec, int lo, int hi, int target) {
   int iter = vec[mid];
 
   if (iter < target) {
-    if (iter > vec[lo]) {
+    // mid is in 1st part.
+    if (iter >= vec[lo]) {    // the = is IMPORTANT for duplicates array
       lo = mid + 1;
       return find_idx(vec, lo, hi, target);
-    } // else, mid is in 2nd part.
+    }
+   // mid is in 2nd part.
     if (vec[hi] < target) {
       hi = mid - 1;
       return find_idx(vec, lo, hi, target);
@@ -60,10 +66,12 @@ int find_idx(vector<int> &vec, int lo, int hi, int target) {
       return hi;
     }
   } else if (iter > target) {
-    if (iter < vec[hi]) {
+    // mid is in 2nd part.
+    if (iter <= vec[hi]) {    // the = is IMPORTANT for duplicates array
       hi = mid - 1;
       return find_idx(vec, lo, hi, target);
-    } // else, mid is in 1st part
+    }
+    // mid is in 1st part
     if (vec[lo] > target) {
       lo = mid + 1;
       return find_idx(vec, lo, hi, target);
@@ -77,13 +85,38 @@ int find_idx(vector<int> &vec, int lo, int hi, int target) {
     return mid;
   }
 
-  //
-  cerr << "logical error! lo: " << lo<< ", mid: " << mid << ", hi: " << mid << ", target: " << mid << ".\n" << flush;
-  exit(EXIT_FAILURE);
 }
 
 
 // 2nd method
+// the book solution, seems more concise
+// check with part is normal order, left or right of the mid point.
+// I changed a little bit, not exactly identical
+/*
+ * Todo: I don't know why the book solution has special treatment for vec[lo] == vec[mid] case. For me, it's pretty clear if the left part are all duplicates, we know the element is not in that part immediately, becasue target != vec[mid] already!!!
+ */
+int find_idx2(vector<int> &vec, int lo, int hi, int target) {
+  if (hi < lo)
+    return -1;
+
+  int mid = (hi - lo) / 2 + lo;
+  int iter = vec[mid];
+  if (iter == target)
+    return mid;
+
+  // left part is normal order.
+  if (vec[lo] <= iter) {    // the = is also IMPORTANT here to make sure duplicates work!!!
+    if (iter > target && vec[lo] <= target)
+      return find_idx2(vec, lo, mid-1, target);
+    else
+      return find_idx2(vec, mid+1, hi, target);
+  } else { // right part is normal order
+    if (iter < target && vec[hi] >= target)
+      return find_idx2(vec, mid+1, hi, target);
+    else
+      return find_idx2(vec, lo, mid-1, target);
+  }
+}
 
 
 
@@ -103,7 +136,8 @@ class Test {
   void test(vector<int> &vec, int target) {
     printf("\nFind %d in vector: ", target);
     print_vector(vec);
-    printf("The index is %d.\n", find_idx(vec, 0, vec.size()-1, target));
+//    printf("The index is %d.\n", find_idx(vec, 0, vec.size()-1, target));
+    printf("The index is %d.\n", find_idx2(vec, 0, vec.size()-1, target));
   }
 
   void test_all_values(vector<int> &vec) {
@@ -113,7 +147,6 @@ class Test {
   }
 
   void test_all_rotations(vector<int> &vec) {
-
   }
 
   void basicTests() {
@@ -132,6 +165,19 @@ class Test {
     printf("====================");
     vec = {2,3,4,5,6,7,1};
     test_all_values(vec);
+    printf("====================");
+    test(vec, 0);
+    test(vec, 8);
+
+    vec = {2,2,2,2,2,3,3};
+    test(vec, 2);
+    test(vec, 3);
+    printf("====================");
+    // duplicates, without >= and <=, it does not work.
+    vec = {2,2,2,2,3,5,2};
+    test(vec, 2);
+    test(vec, 3);
+    test(vec, 5);
     printf("====================");
 
   }
