@@ -23,8 +23,17 @@ using namespace std;
 
 
 // 1st method
+/*
+ * short integer 2 bytes are enough for numbers <= 32000;
+ * so 4kb is enough for 2000 shorts.
+ * make a chunk from 0 - 1999, go through all numbers in the array, find duplicates in the range of 0-1999; then choose next chunk 2000-39999, go through again..
+ */
 
 // 2nd method
+/*
+ * Book solution
+ * 4kb = 32 * 2^10 > 32000, so create a bit vector<32000>.
+ */
 
 
 

@@ -23,6 +23,9 @@ using namespace std;
 
 
 // 1st method
+/*
+ * Separate huge file into chunks, sort each, then merge
+ */
 
 // 2nd method
 
