@@ -37,44 +37,73 @@ using namespace std;
  * If m[i][j] < target < m[i+1][j+1], then the target can only be in the Left lower or Right upper matrices.
  * Then recursively find the target.
  */
-vector<int> find_pos_sub(vector<vector<int>> &mat, int rlo, int rhi, int clo, int chi, int target) {
+
+struct Coordinate {
+  Coordinate() = default;
+  Coordinate(int row, int col) : row(row), col(col) {}
+  bool isNull() { return row < 0 || col < 0; }
+  int row = -1;
+  int col = -1;
+};
+
+
+Coordinate find_pos_sub(vector<vector<int>> &mat, Coordinate &start, Coordinate &end, int target) {
+  int rlo = start.row;
+  int rhi = end.row;
+  int clo = start.col;
+  int chi = end.col;
+
   // check boundary
   if (mat[rlo][clo] > target) {
-    return vector<int>{-1, -1};
+    return Coordinate();
   }
   if (mat[rhi][chi] < target) {
-    return vector<int>{-1, -1};
+    return Coordinate();
   }
 
   // binary search diagonal
-  int lo = 0;
-  int hi = min(rhi - rlo, chi - clo);
-  for(;;) {
-    int mid = (hi - lo) / 2 + lo;
-    int value = mat[rlo + mid][clo + mid];
+  while(rhi >= rlo && chi >= clo) {
+    int rmid = (rhi - rlo) / 2 + rlo;
+    int cmid = (chi - clo) / 2 + clo;
+    int value = mat[rmid][cmid];
     if (value == target)  {
-      return vector<int>{rlo + mid, clo + mid};
-    }
-    else if (value > target) {
-      hi = mid - 1;
+      return Coordinate(rmid, cmid);
+    } else if (value > target) {
+      rhi = rmid - 1;
+      chi = cmid - 1;
     } else {
-      lo = mid + 1;
+      rlo = rmid + 1;
+      clo = cmid + 1;
     }
-    if (hi < lo)
-      break;
+  }
+  // after the loop, mat[clo][rlo] is the first > target.
+
+  auto upperRightStart = Coordinate(start.row, clo);
+  auto upperRightEnd = Coordinate(rlo - 1, end.col);
+  auto upperRightSearch = find_pos_sub(mat, upperRightStart, upperRightEnd, target);
+
+  if (upperRightSearch.isNull()) {
+    auto lowerLeftStart = Coordinate(rlo, start.col);
+    auto lowerLeftEnd = Coordinate(end.row, clo - 1);
+    auto lowerLeftSearch = find_pos_sub(mat, lowerLeftStart, lowerLeftEnd, target);
+    return lowerLeftSearch;
+  } else {
+    return upperRightSearch;
   }
 }
 
-vector<int> find_pos(vector<vector<int>> &mat, int target) {
+Coordinate find_pos(vector<vector<int>> &mat, int target) {
   // check boundary
   int m = mat.size();
   if (m < 1)
-    return vector<int>(2, -1);
+    return Coordinate();
   int n = mat.at(0).size();
   if (n < 1)
-    return vector<int>(2, -1);
+    return Coordinate();
   //
-  return find_pos_sub(mat, 0, m - 1, 0, n - 1, target);
+  auto start = Coordinate(0, 0);
+  auto end = Coordinate(m - 1, n - 1);
+  return find_pos_sub(mat, start, end, target);
 }
 
 
@@ -93,12 +122,21 @@ class Test {
   int num_fail = 0;
 
   void test() {
+    vector<vector<int>> mat = {{1,2}, {3,4}};
+    for (int target = 0; target < 6; ++target) {
+      auto coord = find_pos(mat, target);
+      if (coord.isNull())
+        printf("Not found %d in matrix.\n", target);
+      else
+        printf("%d's coordinate is (%d, %d).\n", target, coord.row, coord.col);
+    }
   }
 
   void basicTests() {
     printf("C++ version: %ld\n", __cplusplus);
     // customize your own tests here
 
+    test();
 
   }
 
