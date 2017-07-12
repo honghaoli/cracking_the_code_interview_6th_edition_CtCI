@@ -31,6 +31,51 @@ using namespace std;
 /*
  * Book soluton:  Binary Search Tree
  */
+/*
+ * Implement binary search tree as Algorithm 3.3 (page 398) in the Algorithm book.
+ * implement for integer for simplicity.
+ * modification:
+ *     since there may be duplicate integers, we need to add the size of node when node has duplicate input.
+ *     here key == value, the size of node = nodes in the subtree including duplicate keys.
+ */
+
+class BST {
+
+ public:
+
+  int size() { return size(root); }
+
+  int rank(int key) { return rank(key, root); }
+
+  void put(int key) {
+    
+  }
+
+ private:
+
+  int size(Node *n) {
+    if (n == nullptr)
+      return 0;
+    else
+      return n->N;
+  }
+
+  // return number of keys less than key, in the subtree rotted at n.
+  int rank(int key, Node *n) {
+
+  }
+
+  Node *root;
+
+  struct Node {
+    Node() = default;
+    Node(int key, int N) : key(key), N(N) {};
+    int key;
+    Node *left = nullptr, *right = nullptr;
+    int N;
+  };
+
+};
 
 // 2nd method
 
