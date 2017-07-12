@@ -20,6 +20,7 @@
 #include <cstdio>
 #include <iostream>
 #include <vector>
+#include <iomanip>
 #include "../lib/helper.h"
 
 
@@ -36,8 +37,31 @@ using namespace std;
  * implement for integer for simplicity.
  * modification:
  *     since there may be duplicate integers, we need to add the size of node when node has duplicate input.
- *     here key == value, the size of node = nodes in the subtree including duplicate keys.
+ *     here value = number of duplicate keys. So rank = original rank + value - 1.
  */
+
+struct Node {
+  Node() = default;
+  Node(int key, int value, int N) : key(key), value(value), N(N) {};
+  int key;
+  int value;
+  Node *left = nullptr, *right = nullptr;
+  int N;    // size of node
+};
+
+// print the tree from top to bottom, in command line, it shows from left to right.
+void print_tree(Node *p, int indent = 0) {
+  if(p != nullptr) {
+    if(p->left) print_tree(p->left, indent + 4);
+    if (indent) {
+      cout << setw(indent) << ' ';
+    }
+    cout<< p->key << "(" << p->value << "," << p->N << ")" << "\n ";
+    if(p->right) print_tree(p->right, indent + 4);
+  }
+  cout << endl;
+}
+
 
 class BST {
 
@@ -47,9 +71,9 @@ class BST {
 
   int rank(int key) { return rank(key, root); }
 
-  void put(int key) {
-    
-  }
+  void put(int key) { root = put(root, key); }
+
+  void print() { print_tree(root); }
 
  private:
 
@@ -62,22 +86,40 @@ class BST {
 
   // return number of keys less than key, in the subtree rotted at n.
   int rank(int key, Node *n) {
-
+    if (n == nullptr)
+      return 0;
+    if (key == n->key) {
+      return size(n->left) + n->value - 1;
+    } else if (key < n->key) {
+      return rank(key, n->left);
+    } else {
+      return size(n->left) + n->value + rank(key, n->right);
+    }
   }
 
-  Node *root;
+  // increase the value of key's node by one if key in subtree rotted at n.
+  // otherwise, add new node to subtree with key.
+  Node* put(Node *n, int key) {
+    if (n == nullptr)
+      return new Node(key, 1, 1);
+    if (key == n->key) {
+      n->value++;
+      n->N++;
+    } else if (key < n->key) {
+      n->left = put(n->left, key);
+    } else {
+      n->right = put(n->right, key);
+    }
+    n->N = size(n->left) + size(n->right) + n->value;
+    return n;
+  }
 
-  struct Node {
-    Node() = default;
-    Node(int key, int N) : key(key), N(N) {};
-    int key;
-    Node *left = nullptr, *right = nullptr;
-    int N;
-  };
-
+  Node *root = nullptr;
 };
 
 // 2nd method
+
+
 
 
 
@@ -95,12 +137,22 @@ class Test {
   int num_fail = 0;
 
   void test() {
+    BST bst;
+    vector<int> arr {5, 1, 4, 4, 5, 9, 7, 13, 3};
+    for (auto &a : arr) {
+      bst.put(a);
+    }
+    bst.print();
+    for (auto &a : arr) {
+      printf("rank of %d = %d\n", a, bst.rank(a));
+    }
   }
 
   void basicTests() {
     printf("C++ version: %ld\n", __cplusplus);
     // customize your own tests here
 
+    test();
 
   }
 
