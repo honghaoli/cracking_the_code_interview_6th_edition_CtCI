@@ -22,8 +22,19 @@
 using namespace std;
 
 
-
 // 1st method
+/*
+ * Do the following...
+ *      a,    b
+ *     a+b,   b
+ *     a+b,   a
+ *      b,    a
+ */
+void swap(int &a, int &b) {
+  a = a + b;
+  b = a - b;
+  a = a - b;
+}
 
 // 2nd method
 
@@ -43,6 +54,11 @@ class Test {
   int num_fail = 0;
 
   void test1() {
+    int a = 1;
+    int b = 2;
+    printf("before swap, a = %d, b = %d.\n", a, b);
+    swap(a, b);
+    printf("after swap, a = %d, b = %d.\n", a, b);
   }
 
   void basicTests() {
