@@ -6,7 +6,7 @@
 
 /*
  * PROBLEM
- * Design a method to find the frequency of occurrences of any given word in a book. What if we were running this alogrithm multiple times?
+ * Design a method to find the frequency of occurrences of any given word in a book. What if we were running this algorithm multiple times?
  */
 
 
@@ -24,6 +24,9 @@ using namespace std;
 
 
 // 1st method
+/*
+ * Hashmap for each word.
+ */
 
 // 2nd method
 

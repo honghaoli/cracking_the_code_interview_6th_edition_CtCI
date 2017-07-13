@@ -7,6 +7,7 @@
 /*
  * PROBLEM
  * Given two straight line segments (represented as a start point and an end point), compute the point of intersection, if any.
+ * Notice: not the intersection of two infinite lines!! only the segments.
  */
 
 
@@ -24,6 +25,9 @@ using namespace std;
 
 
 // 1st method
+/*
+ * Very basic Maths.
+ */
 
 // 2nd method
 

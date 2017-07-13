@@ -30,6 +30,7 @@ using namespace std;
  *     a+b,   a
  *      b,    a
  */
+/// notice this method could cause overflow problem.
 void swap(int &a, int &b) {
   a = a + b;
   b = a - b;
@@ -37,6 +38,15 @@ void swap(int &a, int &b) {
 }
 
 // 2nd method
+/*
+ * A better method uses bit manipulation.
+ * It's better because it works for other types of data besides integers.
+ */
+void swap_bit(int &a, int &b) {
+  a = a ^ b;
+  b = a ^ b;
+  a = a ^ b;
+}
 
 
 
@@ -57,7 +67,8 @@ class Test {
     int a = 1;
     int b = 2;
     printf("before swap, a = %d, b = %d.\n", a, b);
-    swap(a, b);
+//    swap(a, b);
+    swap_bit(a, b);
     printf("after swap, a = %d, b = %d.\n", a, b);
   }
 
