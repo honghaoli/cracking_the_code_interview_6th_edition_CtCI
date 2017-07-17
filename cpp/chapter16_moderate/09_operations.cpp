@@ -24,6 +24,11 @@ using namespace std;
 
 
 // 1st method
+/*
+ * Note: The bit calculation is not allowed!
+ * Then it's not a very interesting problem...
+ */
+
 
 // 2nd method
 
