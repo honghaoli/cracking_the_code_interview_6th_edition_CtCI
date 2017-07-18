@@ -24,6 +24,11 @@ using namespace std;
 
 
 // 1st method
+/*
+ * O(N^2)
+ * For each pair, calculate the slope and intercept.
+ * with special treatment for slope = infinity.
+ */
 
 // 2nd method
 

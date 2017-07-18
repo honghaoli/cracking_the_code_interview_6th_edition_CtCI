@@ -24,6 +24,12 @@ using namespace std;
 
 
 // 1st method
+/*
+ * from all be longer ---> all be shorter.
+ * Total K+1 possibilities, only to remove potential duplicates.
+ * We can use hashmap to check duplicates.
+ */
+// Too simple to write...
 
 // 2nd method
 

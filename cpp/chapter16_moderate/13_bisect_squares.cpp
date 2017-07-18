@@ -24,6 +24,9 @@ using namespace std;
 
 
 // 1st method
+/*
+ * The line connects both centers of two squares...
+ */
 
 // 2nd method
 

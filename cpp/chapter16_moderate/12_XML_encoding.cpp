@@ -38,6 +38,9 @@ using namespace std;
 
 
 // 1st method
+/*
+ * "<" is the start of Tag, then attributes, then ">" for END.
+ */
 
 // 2nd method
 
