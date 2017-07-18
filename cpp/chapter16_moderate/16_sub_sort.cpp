@@ -73,17 +73,24 @@ pair<int, int> find_range(vector<int> &vec) {
   int max_middle = *max_element(vec.begin() + start_middle, vec.begin() + end_middle + 1);
   int min_middle = *min_element(vec.begin() + start_middle, vec.begin() + end_middle + 1);
 
+  /*
+   * Note!!!!
+   * The book solution seems only do one time, first shrink left, then shrink right. That's not correct since shrink left would affect the max and shrink right would affect the min of middle.
+   * Or maybe I missed something in the book solution ?
+   */
   for(;;) {
     // move start pointer
     if (start_middle > 0 && min_middle < vec[start_middle - 1]) {
       start_middle--;
       max_middle = max(vec[start_middle], max_middle);
+      cout << "shrink left" << endl;
     }
     else
     // move end pointer
     if (end_middle < vec.size() - 1 && max_middle > vec[end_middle + 1]) {
       end_middle++;
       min_middle = min(vec[end_middle], min_middle);
+      cout << "shrink right" << endl;
     }
     // found both sides.
     else
@@ -128,6 +135,8 @@ class Test {
     vec = {1,2,3,1,5,6,7,11,9,10};
     test(vec);
     vec = {1,2,3,8,7,6,5,4,9,10};
+    test(vec);
+    vec = {1,2,3,8,7,6,5,4,1,9,10};
     test(vec);
   }
 
