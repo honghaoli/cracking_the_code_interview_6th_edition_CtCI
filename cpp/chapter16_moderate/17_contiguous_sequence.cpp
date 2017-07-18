@@ -27,6 +27,25 @@ using namespace std;
 
 
 // 1st method
+/*
+ * The book solution:
+ * consider alternating pos/neg sequences, if the sequence < 0, no need to add that sequence, otherwise add it.
+ */
+int max_sum(vector<int> &vec) {
+  // assume the min max = 0, if all values are negative, the sequence has 0 element.
+  int maxsum = 0;
+  int sum = 0;
+  for (auto &i : vec) {
+    sum += i;
+    if (maxsum < sum) {
+      maxsum = sum;
+    } else {  // negative element.
+      if (sum < 0)
+        sum = 0;
+    }
+  }
+  return maxsum;
+}
 
 // 2nd method
 
@@ -45,14 +64,29 @@ class Test {
  private:
   int num_fail = 0;
 
-  void test1() {
+  void test(vector<int> &input) {
+    printf("\n");
+    print_vector(input);
+    printf("The max sum: %d\n", max_sum(input));
+  }
+
+  void unit_test() {
+    vector<int> vec;
+    vec = {2, -8, 3, -2, 4, -10};
+    test(vec);
+    vec = {-1, -1, -1};
+    test(vec);
+    vec = {};
+    test(vec);
+    vec = {5, -9, 6, -2, 3};
+    test(vec);
   }
 
   void basicTests() {
     printf("C++ version: %ld\n", __cplusplus);
     // customize your own tests here
 
-    test1();
+    unit_test();
   }
 
 };
