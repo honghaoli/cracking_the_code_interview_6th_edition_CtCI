@@ -19,6 +19,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <unordered_map>
 #include "../lib/helper.h"
 
 
@@ -59,7 +60,37 @@ vector<int> find_swaps(vector<int> &vec1, vector<int> &vec2) {
   return vector<int>{}; /// return empty when cannot find any
 };
 
+
+
 // 2nd method
+/*
+ * The book solution
+ * to find the two elements.
+ *    We can store one array into hashmap, and then find one - target.
+ *    It just a variation of two-sum-problem.
+ */
+vector<int> find_swaps2(vector<int> &vec1, vector<int> &vec2) {
+  if (vec1.size() == 0 || vec2.size() == 0)
+    return vector<int>{}; /// return empty when cannot find any
+
+  int sum1 = accumulate(vec1.begin(), vec1.end(), 0);
+  int sum2 = accumulate(vec2.begin(), vec2.end(), 0);
+  if ((sum1 - sum2) % 2 != 0)
+    return vector<int>{}; /// return empty when cannot find any
+
+  int diff = (sum1 - sum2) / 2;
+  unordered_map<int, bool> hash;
+  for (auto &i : vec2) {
+    hash[i] = true;
+  }
+  for (auto &i : vec1) {
+    if (hash.count(i - diff) != 0)
+      return vector<int>{i, i - diff};
+  }
+
+  return vector<int>{}; /// return empty when cannot find any
+};
+
 
 
 
@@ -83,7 +114,8 @@ class Test {
     int sum1 = accumulate(v1.begin(), v1.end(), 0);
     int sum2 = accumulate(v2.begin(), v2.end(), 0);
     printf("sum1 = %d, sum2 = %d\n", sum1, sum2);
-    auto result = find_swaps(v1, v2);
+//    auto result = find_swaps(v1, v2);
+    auto result = find_swaps2(v1, v2);
     if (result.size() == 2)
       printf("swap %d and %d\n", result.at(0), result.at(1));
     else
