@@ -29,6 +29,7 @@ using namespace std;
  * Image we have n digits, each digit has m possible values
  * Then the total number of possible values are n^m.
  * here n = 7, m = 5. 7^5 % 7 == 0.
+ * Note all values from 11111... to mmmmm... are equally possible.
  * so all 7^5 values are equally distributed when mod 7.
  *
  * Thus, we need to do 7 times rand5(), and convert into a 7 digits, then map this value into 0~6.
@@ -56,6 +57,17 @@ int rand7() {
   }
   return R % 7;
 }
+
+
+
+//////////////////////////////////////////
+/*  Thoughts
+ *  The book solution gives what!!!??? a "nondeterministic" number of calls in a while loop?????
+ *  huh................
+ *  Are you kidding me? This is called a solution?
+ */
+//////////////////////////////////////////
+
 
 // 2nd method
 

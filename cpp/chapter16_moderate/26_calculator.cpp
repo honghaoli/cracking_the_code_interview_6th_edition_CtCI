@@ -6,6 +6,10 @@
 
 /*
  * PROBLEM
+ * Given an arithmetic equation consisting of positive integers, +, -, * and / (no parentheses), compute the result.
+ * EXAMPLE:
+ *    INPUT:    2*3+5/6*3+15
+ *    OUTPUT:   23.5
  */
 
 

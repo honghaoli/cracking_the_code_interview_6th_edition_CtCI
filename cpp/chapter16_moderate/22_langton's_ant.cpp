@@ -14,6 +14,12 @@
  */
 
 
+/*  Thoughts
+ *  Then how do we know which grid is white/black ??
+ *  This information should be input too!
+ *  The book solution 3 (hashset) does not mention how to store all white squares into a hashset with possible infinite white squares....
+ */
+
 
 
 #include <cstdio>
