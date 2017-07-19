@@ -39,8 +39,20 @@ using namespace std;
 
 
 // 1st method
+/*
+ * For N digits input:
+ *    Brute force ~ O( (3~4)^N ), check all combination, find the word in hash.
+ *    Tries would be efficient, since it breaks earlier once no match.
+ */
+
+
 
 // 2nd method
+/*
+ * The book solution
+ * Pre-calculate all words in the dictionary into digits, then just look up.
+ * ~ O(1) for each look up, but O(N) for N as the length of the word.
+ */
 
 
 
