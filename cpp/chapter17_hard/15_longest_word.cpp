@@ -6,6 +6,10 @@
 
 /*
  * PROBLEM
+ * Given a list of words, write a program to find the longest word made of other words in the list.
+ * EXAMPLE:
+ *    INPUT:    cat, banana, dog, nana, walk, walker, dogwalker
+ *    OUTPUT:   dogwalker
  */
 
 

@@ -6,6 +6,10 @@
 
 /*
  * PROBLEM
+ * Write a method to count the number of 2s that appear in all numbers between 0 and n (inclusive).
+ * EXAMPLE:
+ *    INPUT:    25
+ *    OUTPUT:   9   (2, 12, 20, 21, 22, 23, 24, 25.  Note 22 counts for two 2s.)
  */
 
 
