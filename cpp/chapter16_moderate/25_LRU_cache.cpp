@@ -24,6 +24,10 @@ using namespace std;
 
 
 // 1st method
+/*
+ * The book solution.
+ * Combine hashtable and linked list.
+ */
 
 // 2nd method
 
