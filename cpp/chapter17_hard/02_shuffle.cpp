@@ -16,6 +16,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <random>
 #include "../lib/helper.h"
 
 
@@ -25,8 +26,30 @@ using namespace std;
 
 // 1st method
 /*
- * The famous fisher-what-blabla shuffle algorithm.
+ * The famous Fisher-Yates-Knuth shuffle algorithm
+ *        https://en.wikipedia.org/wiki/Fisher–Yates_shuffle
+ * Choose one of those variations
  */
+
+
+// both lo and hi are inclusive.
+int random_range(int lo, int hi) {
+}
+
+default_random_engine generator;
+
+template <typename T>
+void fyk_shuffle(vector<T> &deck) {
+  for (int i = 0; i < deck.size(); ++i) {
+    uniform_int_distribution<int> distribution(i, deck.size() - 1);
+//    int idx = random_range(i, deck.size() - 1);
+    int idx = distribution(generator);
+    // exchange i and idx.
+    T tmp = deck[idx];
+    deck[idx] = deck[i];
+    deck[i] = tmp;
+  }
+}
 
 // 2nd method
 
@@ -45,14 +68,24 @@ class Test {
  private:
   int num_fail = 0;
 
-  void test1() {
+  void test(vector<int> vec, int N) {
+    print_vector(vec);
+    printf("shuffle %d times:\n", N);
+    for (int i = 0; i < N; ++i) {
+      fyk_shuffle(vec);
+      print_vector(vec);
+    }
+  }
+
+  void unit_test() {
+    test({1,2,3}, 20);
   }
 
   void basicTests() {
     printf("C++ version: %ld\n", __cplusplus);
     // customize your own tests here
 
-    test1();
+    unit_test();
   }
 
 };
