@@ -43,7 +43,7 @@ int random_range(int lo, int hi) {
 
 template <typename T>
 void fyk_shuffle(vector<T> &deck) {
-  for (int i = 0; i < deck.size(); ++i) {
+  for (int i = 0; i < deck.size() - 1; ++i) {   // last element can only exchange with itself.
     int idx = random_range(i, deck.size() - 1);
     // exchange i and idx.
     T tmp = deck[idx];

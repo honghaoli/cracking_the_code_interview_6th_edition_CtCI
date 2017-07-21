@@ -24,6 +24,10 @@ using namespace std;
 
 
 // 1st method
+/*
+ * Shuffle and take the first m element.
+ * Too easy to implement
+ */
 
 // 2nd method
 
