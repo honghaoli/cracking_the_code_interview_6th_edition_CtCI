@@ -64,6 +64,13 @@ vector<int> find_two_missing(vector<int> &input) {
   return vector<int>{m1, m2};
 }
 
+
+/*
+ * Thoughts
+ * The book solution for two missing number is more complicated and trouble-some than my algorithm. :)
+ * It calcualtes 1^2 + 2^2 + 3^2 + ... + N^2 as another sum2, then solve the two values from a 2nd-order equation...
+ */
+
 // 2nd method
 
 
