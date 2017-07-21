@@ -24,6 +24,9 @@ using namespace std;
 
 
 // 1st method
+/*
+ * The famous fisher-what-blabla shuffle algorithm.
+ */
 
 // 2nd method
 

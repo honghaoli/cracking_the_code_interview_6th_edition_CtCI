@@ -6,6 +6,7 @@
 
 /*
  * PROBLEM
+ * Numbers are randomly generated and passed to a method. Write a program to find and maintain the median values as new values are generated.
  */
 
 

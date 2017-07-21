@@ -6,6 +6,7 @@
 
 /*
  * PROBLEM
+ * Given an N*N matrix of positive and negative integers, write code to find the sub-matrix with the largest possible sum.
  */
 
 
