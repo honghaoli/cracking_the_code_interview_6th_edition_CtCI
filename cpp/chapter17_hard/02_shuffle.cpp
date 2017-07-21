@@ -32,18 +32,19 @@ using namespace std;
  */
 
 
+default_random_engine generator;
+
 // both lo and hi are inclusive.
 int random_range(int lo, int hi) {
+  uniform_int_distribution<int> distribution(lo, hi);
+  return distribution(generator);
 }
 
-default_random_engine generator;
 
 template <typename T>
 void fyk_shuffle(vector<T> &deck) {
   for (int i = 0; i < deck.size(); ++i) {
-    uniform_int_distribution<int> distribution(i, deck.size() - 1);
-//    int idx = random_range(i, deck.size() - 1);
-    int idx = distribution(generator);
+    int idx = random_range(i, deck.size() - 1);
     // exchange i and idx.
     T tmp = deck[idx];
     deck[idx] = deck[i];
