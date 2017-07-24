@@ -46,15 +46,21 @@ void remove_multiples(unordered_map<string, int> &names, vector<vector<string>> 
       names[pair.at(0)] += names[pair.at(1)];
       names.erase(pair.at(1));
     } else if (newname1) {
-      unique_names[pair.at(0)] = pair.at(1);
+      unique_names[pair.at(0)] = unique_names[pair.at(1)];
       names[pair.at(1)] += names[pair.at(0)];
       names.erase(pair.at(0));
     } else if (newname2) {
-      unique_names[pair.at(1)] = pair.at(0);
+      unique_names[pair.at(1)] = unique_names[pair.at(0)];
       names[pair.at(0)] += names[pair.at(1)];
       names.erase(pair.at(1));
     } else {
-      cout << "duplicate synonyms pairs in input!" << endl;
+      // This part needs careful treatment!
+      // In this way, any name has at most one parent, so we change both.
+      string temp = unique_names[pair.at(1)];
+      unique_names[unique_names[pair.at(1)]] = unique_names[pair.at(0)];
+      unique_names[pair.at(1)] = unique_names[pair.at(0)];
+      names[unique_names[pair.at(0)]] += names[temp];
+      names.erase(temp);
     }
   }
 };
@@ -116,8 +122,50 @@ class Test {
     cout << endl;
   }
 
+  void test2() {
+    //  Output:        John(33), Kari(8), Davis(2), Carleton(10).
+    unordered_map<string, int> names;
+    vector<vector<string>> synonyms;
+
+    names["John"] = 10;
+    names["Jon"] = 3;
+    names["Davis"] = 2;
+    names["Kari"] = 3;
+    names["Johnny"] = 11;
+    names["Carlton"] = 8;
+    names["Carleton"] = 2;
+    names["Jonathan"] = 9;
+    names["Carrie"] = 5;
+
+    synonyms.push_back(vector<string>{"Jonathan", "John"});
+    synonyms.push_back(vector<string>{"Jon", "Johnny"});
+    synonyms.push_back(vector<string>{"Johnny", "John"});
+    synonyms.push_back(vector<string>{"Kari", "Carrie"});
+    synonyms.push_back(vector<string>{"Carleton", "Carlton"});
+
+    cout << "original names:" << endl;
+    for (auto &x : names) {
+      cout << x.first << "(" << x.second << "), ";
+    }
+    cout << endl;
+    cout << "synonyms:" << endl;
+    for (auto &x : synonyms) {
+      cout << "(" << x.at(0) << ", " << x.at(1) << "), ";
+    }
+    cout << endl;
+
+    remove_multiples(names, synonyms);
+
+    cout << "after:" << endl;
+    for (auto &x : names) {
+      cout << x.first << "(" << x.second << "), ";
+    }
+    cout << endl;
+  }
+
   void unit_test() {
     test1();
+    test2();
   }
 
   void basicTests() {
