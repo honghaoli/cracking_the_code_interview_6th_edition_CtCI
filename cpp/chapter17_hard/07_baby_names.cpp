@@ -47,11 +47,11 @@ void remove_multiples(unordered_map<string, int> &names, vector<vector<string>> 
       names.erase(pair.at(1));
     } else if (newname1) {
       unique_names[pair.at(0)] = unique_names[pair.at(1)];
-      names[pair.at(1)] += names[pair.at(0)];
+      names[unique_names[pair.at(1)]] += names[pair.at(0)];
       names.erase(pair.at(0));
     } else if (newname2) {
       unique_names[pair.at(1)] = unique_names[pair.at(0)];
-      names[pair.at(0)] += names[pair.at(1)];
+      names[unique_names[pair.at(0)]] += names[pair.at(1)];
       names.erase(pair.at(1));
     } else {
       // This part needs careful treatment!
@@ -102,6 +102,7 @@ class Test {
     synonyms.push_back(vector<string>{"Chris", "Kris"});
     synonyms.push_back(vector<string>{"Chris", "Christopher"});
 
+    cout << endl;
     cout << "original names:" << endl;
     for (auto &x : names) {
       cout << x.first << "(" << x.second << "), ";
@@ -143,6 +144,52 @@ class Test {
     synonyms.push_back(vector<string>{"Kari", "Carrie"});
     synonyms.push_back(vector<string>{"Carleton", "Carlton"});
 
+    cout << endl;
+    cout << "original names:" << endl;
+    for (auto &x : names) {
+      cout << x.first << "(" << x.second << "), ";
+    }
+    cout << endl;
+    cout << "synonyms:" << endl;
+    for (auto &x : synonyms) {
+      cout << "(" << x.at(0) << ", " << x.at(1) << "), ";
+    }
+    cout << endl;
+
+    remove_multiples(names, synonyms);
+
+    cout << "after:" << endl;
+    for (auto &x : names) {
+      cout << x.first << "(" << x.second << "), ";
+    }
+    cout << endl;
+  }
+
+  void test3() {
+    //  Output:        John(33), Kari(8), Davis(2), Carleton(10).
+    unordered_map<string, int> names;
+    vector<vector<string>> synonyms;
+
+    names["John"] = 10;
+    names["Jon"] = 3;
+    names["Davis"] = 2;
+    names["Kari"] = 3;
+    names["Johnny"] = 11;
+    names["Carlton"] = 8;
+    names["Carleton"] = 2;
+    names["Jonathan"] = 9;
+    names["Carrie"] = 5;
+
+    names["JohnTest"] = 1;
+
+    synonyms.push_back(vector<string>{"Jonathan", "John"});
+    synonyms.push_back(vector<string>{"Jon", "Johnny"});
+    synonyms.push_back(vector<string>{"Johnny", "John"});
+    synonyms.push_back(vector<string>{"Kari", "Carrie"});
+    synonyms.push_back(vector<string>{"Carleton", "Carlton"});
+    synonyms.push_back(vector<string>{"JohnTest", "John"});
+
+    cout << endl;
     cout << "original names:" << endl;
     for (auto &x : names) {
       cout << x.first << "(" << x.second << "), ";
@@ -166,6 +213,7 @@ class Test {
   void unit_test() {
     test1();
     test2();
+    test3();
   }
 
   void basicTests() {
