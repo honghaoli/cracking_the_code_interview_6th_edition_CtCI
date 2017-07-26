@@ -27,6 +27,10 @@ using namespace std;
 
 
 // 1st method
+/*
+ * The book solution
+ * a majority element in the whole array must be a majority element in some sub-arrays.
+ */
 
 // 2nd method
 

@@ -33,6 +33,7 @@ using namespace std;
 // 1st method
 /*
  * create a tree structure for all alias, then use the root as the keyword.
+ * Actually, maybe it's easier to keep only one parent at most, each time change both to another root.
  */
 
 void remove_multiples(unordered_map<string, int> &names, vector<vector<string>> &synonyms) {
@@ -68,6 +69,9 @@ void remove_multiples(unordered_map<string, int> &names, vector<vector<string>> 
 
 
 // 2nd method
+/*
+ * the book solution
+ */
 
 
 

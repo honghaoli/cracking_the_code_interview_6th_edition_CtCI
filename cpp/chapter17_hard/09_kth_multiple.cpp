@@ -25,8 +25,18 @@ using namespace std;
 
 
 // 1st method
+/*
+ *  brute-force
+ */
+long find_kth(int k) {
+
+}
 
 // 2nd method
+/*
+ * The book solution
+ * TODO:
+ */
 
 
 

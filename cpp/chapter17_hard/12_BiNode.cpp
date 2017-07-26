@@ -30,6 +30,12 @@
 using namespace std;
 
 
+class BiNode {
+ public:
+  BiNode *node1, *node2;
+  int data;
+};
+
 
 // 1st method
 

@@ -24,6 +24,13 @@ using namespace std;
 
 
 // 1st method
+/*
+ * Single search operation.
+ * Go through the whole file, search the two words A and B. Mark the first found word as F, if the next is the same, update F, otherwise calculate the distance to compare with the shortest.
+ * O(N) time and O(1) space for single operation.
+ */
+
+
 
 // 2nd method
 

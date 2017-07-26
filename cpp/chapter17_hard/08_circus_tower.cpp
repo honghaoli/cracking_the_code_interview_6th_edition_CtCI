@@ -16,6 +16,10 @@
  */
 
 
+/*
+ * The same problem as chapter08-13: stack of boxes.
+ */
+
 
 
 #include <cstdio>
