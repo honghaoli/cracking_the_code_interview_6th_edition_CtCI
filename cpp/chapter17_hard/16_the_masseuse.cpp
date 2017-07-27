@@ -27,6 +27,33 @@ using namespace std;
 
 
 // 1st method
+/*
+ * recursively find the max of a sub-array.
+ */
+
+int max_time(vector<int> &input, int start, vector<int> &times) {
+  int n = input.size();
+  if (start >= n)
+    return 0;
+  if (times[start] > 0)   // dynamical programming
+    return times[start];
+  if (start == n - 1) {   // only one elements array
+    times[start] = input[n - 1];
+    return times[start];
+  }
+  if (start == n - 2) {  // two elements array
+    times[start] = max(input[n - 1], input[n - 2]);
+    return times[start];
+  }
+
+  times[start] = max(input[start] + max_time(input, start + 2, times), max_time(input, start + 1, times));
+  return times[start];
+}
+
+int max_time(vector<int> &input) {
+  vector<int> times(input.size(), -1);
+  return max_time(input, 0, times);
+}
 
 // 2nd method
 
@@ -45,14 +72,21 @@ class Test {
  private:
   int num_fail = 0;
 
-  void test1() {
+  void test() {
+    vector<int> input = {30, 15, 60, 75, 45, 15, 15, 45};
+    print_vector(input);
+    printf("max time: %d.\n", max_time(input));
+  }
+
+  void unit_test() {
+    test();
   }
 
   void basicTests() {
     printf("C++ version: %ld\n", __cplusplus);
     // customize your own tests here
 
-    test1();
+    unit_test();
   }
 
 };

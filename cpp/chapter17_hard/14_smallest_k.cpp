@@ -24,8 +24,25 @@ using namespace std;
 
 
 // 1st method
+/*
+ * Directly sort ~O(NlogN), or if K < logN, find K times, so ~O(KN)
+ */
+
 
 // 2nd method
+/*
+ * The book solution
+ * Max heap, only keep K items, O( N log K)
+ */
+
+
+
+// 3rd method
+/*
+ * The book solution
+ * Find the ith smallest element in expected O(N) time, then walk through to find all K numbers.
+ */
+
 
 
 

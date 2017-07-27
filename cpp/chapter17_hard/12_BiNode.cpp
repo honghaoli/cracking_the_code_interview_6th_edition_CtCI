@@ -119,6 +119,7 @@ void convert_tree_to_linked_list(BiNode *node) {
 // 2nd method
 /*
  * The book solution, from top to bottom, recursively merge into a list
+ * But the book solution uses lots of tricks to find the head and tail nodes.
  */
 
 void merge_list(BiNode *left_tail, BiNode *node, BiNode *right_head) {

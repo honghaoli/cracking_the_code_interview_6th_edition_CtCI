@@ -6,7 +6,7 @@
 
 /*
  * PROBLEM
- * Oh, no! You have accidentallly removed all spaces, punctuation, and capitalization in a lengthy document. A sentence like "I reset the computer. It still didn't boot!" became "iresetthecomputeritstilldidntboot". You'll deal with the punctuation and capitalization later; right now you need to re-insert the spaces. Most of the words are in a dictionary but a few are not. Given a dictionary (a list of strings) and the document (a string), design an algorithm to unconcatenate the document in a way that minimizes the number of unrecognized characters.
+ * Oh, no! You have accidentally removed all spaces, punctuation, and capitalization in a lengthy document. A sentence like "I reset the computer. It still didn't boot!" became "iresetthecomputeritstilldidntboot". You'll deal with the punctuation and capitalization later; right now you need to re-insert the spaces. Most of the words are in a dictionary but a few are not. Given a dictionary (a list of strings) and the document (a string), design an algorithm to unconcatenate the document in a way that minimizes the number of unrecognized characters.
  * EXAMPLE:
  *    INPUT:    jesslookedjustliketimherbrother
  *    OUTPUT:   jess looked just like tim her brother ( 7 unrecognized characters)
@@ -29,6 +29,15 @@ using namespace std;
 
 
 // 1st method
+/*
+ * each time found a word, calculate the min unrecognized chars in the rest sub-string.
+ */
+int min_unrecognized_chars(string &str, int start) {
+  int unchar = 0;
+  for (int i = start; i < str.size(); ++i) {
+
+  }
+}
 
 // 2nd method
 

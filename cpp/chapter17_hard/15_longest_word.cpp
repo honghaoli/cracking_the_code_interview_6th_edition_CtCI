@@ -12,6 +12,9 @@
  *    OUTPUT:   dogwalker
  */
 
+/* Thoughts
+ * Should the longer word contains two other words or arbitrary numbers of words.
+ * /
 
 
 
@@ -27,8 +30,16 @@ using namespace std;
 
 
 // 1st method
+/*
+ * use tries to store all the words.
+ */
+
 
 // 2nd method
+/*
+ * The book solution:
+ * From longest to short, try to find if the right substring of the word can be found in the array, use dynamic programming for repeated check.
+ */
 
 
 
