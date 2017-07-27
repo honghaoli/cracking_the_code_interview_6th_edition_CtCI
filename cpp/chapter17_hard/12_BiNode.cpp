@@ -117,6 +117,50 @@ void convert_tree_to_linked_list(BiNode *node) {
 
 
 // 2nd method
+/*
+ * The book solution, from top to bottom, recursively merge into a list
+ */
+
+void merge_list(BiNode *left_tail, BiNode *node, BiNode *right_head) {
+  if (node != nullptr) {
+    node->node1 = left_tail;
+    node->node2 = right_head;
+    if (left_tail != nullptr)
+      left_tail->node2 = node;
+    if (right_head != nullptr)
+      right_head->node1 = node;
+  }
+}
+
+pair<BiNode*, BiNode*> convert(BiNode *node) {
+  BiNode *left_head = nullptr;
+  BiNode *right_tail = nullptr;
+  if (node == nullptr)
+    return make_pair(left_head, right_tail);
+
+  auto left = convert(node->node1);
+  auto right = convert(node->node2);
+  left_head = left.first;
+  auto left_tail = left.second;
+  auto right_head = right.first;
+  right_tail = right.second;
+  merge_list(left_tail, node, right_head);
+
+  // this is important to avoid each node becomes  ( nullptr <- node -> nullptr )
+  if (left_tail == nullptr)
+    left_head = node;
+  if (right_head == nullptr)
+    right_tail = node;
+
+  return make_pair(left_head, right_tail);  // front
+}
+
+void print_list(BiNode *node) {
+  while (node != nullptr) {
+    cout << node->data << " --> ";
+    node = node->node2;
+  }
+}
 
 
 
@@ -138,7 +182,12 @@ class Test {
     cout << "\nTest tree" << endl;
     auto node = create_binode(vec);
 
-    convert_tree_to_linked_list(&node);
+    // 1st method
+//    convert_tree_to_linked_list(&node);
+
+    // 2nd method
+    auto list = convert(&node);
+    print_list(list.first);
   }
 
   void unit_test() {

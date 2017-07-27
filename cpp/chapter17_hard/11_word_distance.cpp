@@ -30,6 +30,9 @@ using namespace std;
  * O(N) time and O(1) space for single operation.
  */
 
+/*
+ * Todo: For repeated operations?
+ */
 
 
 // 2nd method
