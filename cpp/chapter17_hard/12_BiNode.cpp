@@ -24,20 +24,97 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <iomanip>
 #include "../lib/helper.h"
 
 
 using namespace std;
 
 
-class BiNode {
- public:
-  BiNode *node1, *node2;
-  int data;
+struct BiNode {
+  BiNode() = default;
+  BiNode(int value) : data(value) {}
+  BiNode *node1 = nullptr, *node2 = nullptr;
+  int data = 0;
 };
+
+// print the tree from top to bottom, in command line, it shows from left to right.
+void print_tree(BiNode *p, int indent = 0) {
+  if (p != nullptr) {
+    if (p->node1) print_tree(p->node1, indent + 4);
+    if (indent) {
+      cout << setw(indent) << ' ';
+    }
+    cout << p->data << "\n ";
+    if (p->node2) print_tree(p->node2, indent + 4);
+  }
+}
+
+
+BiNode* insert_node(BiNode *node, int value) {
+  if (node == nullptr) {
+    return new BiNode(value);
+  }
+  if (value < node->data) {
+    node->node1 = insert_node(node->node1, value);
+  } else if (value > node->data) {
+    node->node2 = insert_node(node->node2, value);
+  } else {
+    cout << "duplicate values in binary search tree! " << value << endl;
+  }
+  return node;
+}
+
+// create a BiNode from a vector
+BiNode create_binode(vector<int> &vec) {
+  BiNode node;
+  if (vec.size() < 1)
+    return node;
+
+  node = BiNode(vec.at(0));
+  for (int i = 1; i < vec.size(); ++i) {
+    insert_node(&node, vec[i]);
+  }
+
+  print_tree(&node);
+}
 
 
 // 1st method
+/*
+ * DFS in order traversal, add node in this sequence.
+ * This works, but the code is ugly.
+ */
+BiNode* add_node(BiNode *node, BiNode *last) {
+  if (node != nullptr) {
+    node->node1 = last;
+    if (last != nullptr) {
+      last->node2 = node;
+    }
+    last = node;
+  }
+  return last;
+}
+
+// traversal order.
+BiNode* in_order_traversal(BiNode *node, BiNode *last) {
+  if (node != nullptr) {
+    last = in_order_traversal(node->node1, last);
+    last = add_node(node, last);
+    last = in_order_traversal(node->node2, last);
+  }
+  return last;
+}
+
+void convert_tree_to_linked_list(BiNode *node) {
+  auto last = in_order_traversal(node, nullptr);
+  while (last != nullptr) {
+    cout << last->data << " <-- ";
+    last = last->node1;
+  }
+}
+
+
 
 // 2nd method
 
@@ -56,14 +133,23 @@ class Test {
  private:
   int num_fail = 0;
 
-  void test1() {
+  void test_tree() {
+    vector<int> vec {5,2,1,6,7,3,8,4,9,0};
+    cout << "\nTest tree" << endl;
+    auto node = create_binode(vec);
+
+    convert_tree_to_linked_list(&node);
+  }
+
+  void unit_test() {
+    test_tree();
   }
 
   void basicTests() {
     printf("C++ version: %ld\n", __cplusplus);
     // customize your own tests here
 
-    test1();
+    unit_test();
   }
 
 };
