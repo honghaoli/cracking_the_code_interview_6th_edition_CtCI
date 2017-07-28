@@ -10,6 +10,15 @@
  */
 
 
+/*
+ * Suppose the big string b has m chars;
+ * the array of T has n elements;
+ * It's actually a sub-string search problem.
+ */
+/*
+ * By brutal force:
+ * search a sub-string in b would take O(m^2) time.
+ */
 
 
 #include <cstdio>
@@ -24,8 +33,22 @@ using namespace std;
 
 
 // 1st method
+/*
+ * Convert b into a trie: ~ O(b^2)
+ * the longest string in T has k chars;
+ * Each search needs ~ O(k);
+ * So total ~ O(b^2 + k*n)
+ */
+
+
 
 // 2nd method
+/*
+ *  The book solution
+ *  Convert T into a trie: ~ O(k*n)
+ *  search all strings: ~ O(b*k)
+ *  total ~ O(bk + kn)
+ */
 
 
 

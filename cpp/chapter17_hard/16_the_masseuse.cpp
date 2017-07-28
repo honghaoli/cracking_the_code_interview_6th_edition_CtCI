@@ -55,7 +55,15 @@ int max_time(vector<int> &input) {
   return max_time(input, 0, times);
 }
 
+
+
 // 2nd method
+/*
+ * The book solution
+ * Change recursion to iterative also gives O(N) time and O(N) space.
+ * However, notice we only need to know maxtime for i+1 and i+2, we can only store those two values instead of all the times[n].
+ * So the space reduces to O(1).
+ */
 
 
 
@@ -72,14 +80,17 @@ class Test {
  private:
   int num_fail = 0;
 
-  void test() {
-    vector<int> input = {30, 15, 60, 75, 45, 15, 15, 45};
+  void test(vector<int> &input) {
     print_vector(input);
-    printf("max time: %d.\n", max_time(input));
+    printf("max time: %d.\n\n", max_time(input));
   }
 
   void unit_test() {
-    test();
+    vector<int> input;
+    input = {30, 15, 60, 75, 45, 15, 15, 45};
+    test(input);
+    input = {45, 60, 45, 15};
+    test(input);
   }
 
   void basicTests() {
