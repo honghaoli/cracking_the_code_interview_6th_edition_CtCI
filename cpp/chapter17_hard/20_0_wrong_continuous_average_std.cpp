@@ -6,9 +6,13 @@
 
 /*
  * PROBLEM
- * Numbers are randomly generated and passed to a method. Write a program to find and maintain the median values as new values are generated.
+ * Numbers are randomly generated and passed to a method. Write a program to find and maintain the average values and std as new values are generated.
  */
 
+/*
+ * This is a classic problem!
+ * Actually we could expand it to calculate the median and the variance at the same time! on-the-fly!.
+ */
 
 
 #include <cstdio>
@@ -24,9 +28,25 @@ using namespace std;
 
 // 1st method
 /*
- * The book solution
- * Two heaps to maintain the left and right part of the median
+ * new = (old * N + value) / (N + 1)
  */
+class Stats {
+ public:
+  Stats() : N(0), average(0) {}
+
+  double get_average() { return average; }
+
+  void add(double value) {
+    average = (average * N + value) / (N + 1);
+    N++;
+  }
+
+ private:
+  int N;
+  double average;
+
+};
+
 
 
 // 2nd method
@@ -49,9 +69,11 @@ class Test {
   void test(vector<double> &input) {
     cout << endl << "input: " << endl;
     print_vector(input);
-    cout << "medians: " << endl;
+    Stats s = Stats();
+    cout << "average: " << endl;
     for (auto &v : input) {
-      cout << ", ";
+      s.add(v);
+      cout << s.get_average() << ", ";
     }
     cout << endl;
   }
