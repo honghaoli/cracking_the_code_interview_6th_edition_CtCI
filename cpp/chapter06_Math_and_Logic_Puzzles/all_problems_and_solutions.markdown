@@ -49,3 +49,8 @@ You have a five-quart jug, a three-quart jug, and an unlimited supply of water (
 
 ### 6. Blue-Eyed Island:
 A bunch of people are living on an island, when a visitor comes with a strange order: all blue-eyed people must leave the island as soon as possible. There will be a flight out at 8:00pm every evening. Each person can see everyone else's eye color, but they do not know their own (nor is anyone allowed to tell them). Additionally, they do not know how many people have blue eyes, although they do know that at least one person does. How many days will it take the blue-eyed people to leave?
+
+#### Answer:
+Start from 1 person, he immediately knows the only person is himself, so he leaves on the 1st day;
+If there are 2 persons, A would notice B did not leave on the 1st day, then he knows himself is blue too.
+Following the same logic, if there are N blue-eyed persons, they will simultaneously leave on the Nth day.
