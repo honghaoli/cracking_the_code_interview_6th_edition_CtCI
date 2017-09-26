@@ -54,3 +54,19 @@ A bunch of people are living on an island, when a visitor comes with a strange o
 Start from 1 person, he immediately knows the only person is himself, so he leaves on the 1st day;
 If there are 2 persons, A would notice B did not leave on the 1st day, then he knows himself is blue too.
 Following the same logic, if there are N blue-eyed persons, they will simultaneously leave on the Nth day.
+
+
+### 7. The Apocalypse:
+In the new post-apocalyptic world, the world queen is desperately concerned about the birth rate. Therefore, she decrees that all families should ensure that they have one girl or else they face massive fines. If all families abide by this policy -- that is, they have continue to have children until they have one girl, at which point they immediately stop -- what will the gender ratio of the new generation be? (Assume that the odds of someone having a boy or a girl on any given pregnancy is equal.) Solve this out logically and then write a computer simulation of it.
+
+#### Answer:
+The probability of having i boys is
+P(i) = (1/2)^i * (1/2)
+So the expectation of number of boys is:
+N = sum_{i = 0}^{i = infinity} i * (1/2) ^ (i + 1);
+The sum is exactly 1, the same as the number of girls.
+So the ratio is still 1 : 1
+
+
+### 8. The Egg Drop Proble:
+There is a building of 100 floors. If an egg drops from the Nth floor or above, it will break. If it's dropped from any floor below, it will not break. You're given two eggs. Find N while minimizing the number of drops for the worst case.
