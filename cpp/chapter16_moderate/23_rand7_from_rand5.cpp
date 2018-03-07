@@ -25,6 +25,8 @@ using namespace std;
 
 
 // 1st method
+// This is wrong!!!!
+// it's 5^7, NOT 7^5!!!
 /*
  * Image we have n digits, each digit has m possible values
  * Then the total number of possible values are n^m.
@@ -36,37 +38,6 @@ using namespace std;
  */
 
 
-// rand() % 5 is not accurate enough.
-std::default_random_engine generator;
-std::uniform_int_distribution<int> distribution(0,4);
-int rand5() {
-  return distribution(generator);
-}
-
-/*
- * r0
- * r0 * 5 + r1
- * r0 * 5^2 + r1 * 5 + r2
- * ...
- * r0 * 5^6 + r1 * 5^5 + r2 * 5^4 + ... + r5 * 5 + r6.
- */
-int rand7() {
-  int R = 0;
-  for (int i = 0; i < 7; ++i) {
-    R = 5 * R + rand5();
-  }
-  return R % 7;
-}
-
-
-
-//////////////////////////////////////////
-/*  Thoughts
- *  The book solution gives what!!!??? a "nondeterministic" number of calls in a while loop?????
- *  huh................
- *  Are you kidding me? This is called a solution?
- */
-//////////////////////////////////////////
 
 
 // 2nd method
